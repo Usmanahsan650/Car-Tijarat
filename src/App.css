@@ -1,0 +1,71 @@
+#navbar{
+  background-color: teal;
+  color: white;
+  position: sticky;
+  top: 0px
+}
+h3.Headings{
+  color: teal!important;
+}
+#toggleButton.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E")!important; 
+}
+/* .slide{
+  z-index: -1!important;
+} */
+.navbar-toggler {
+  border-color: rgb(36, 36, 34);
+  border-radius: 5px;
+  border-width: 2px;
+} 
+#collapseableMenu{
+  margin-right: 10px
+}
+.carousel-inner{
+  height: fit-content;
+  z-index: -1;
+}
+#Membership{
+  height: 350px;
+  border-radius:10px;
+  border-color: black;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.Footer{
+  background-color: teal
+}
+.MembershipPrice{
+  color: green;
+}
+#Login{
+margin-left: auto;
+}
+.page-enter{
+  opacity: 0.1;
+  transform: translateY(-100%);
+}
+.page-enter-active{
+  opacity: 1;
+  transform: translate(0%);
+  transition: all 500ms ease-in;
+}
+.page-exit{
+  opacity: 1;
+  transform: translateY(0%);
+}
+.page-exit-active{
+  opacity: 0.5;
+  transform: translateY(100%);
+  transition: all 500ms ease-out;
+}
+.TBI{ 
+  margin-top: 25%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  color: white;
+}
