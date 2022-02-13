@@ -9,7 +9,7 @@ export function Header(props) {
     }
     return (<div>
         <Navbar id='navbar' dark expand="lg" >
-            <NavbarBrand href="/">Car Tijarat</NavbarBrand>
+            <NavbarBrand id="Logo" href="/" ><img src="Logo2.png" height={"50px"} /></NavbarBrand>
                  
             <Nav id="Login">
                 <NavItem><Button style={{"marginRight":"5px"}} color="warning">Register</Button></NavItem>
@@ -20,7 +20,7 @@ export function Header(props) {
                         </DropdownToggle>
                         <DropdownMenu>
                             <DropdownItem header>Login</DropdownItem>
-                            <DropdownItem>As Seller</DropdownItem>
+                            <Link to="/login/seller"> <DropdownItem>As Seller</DropdownItem></Link>
                             <DropdownItem>As Buyer</DropdownItem>
                             
                         </DropdownMenu>

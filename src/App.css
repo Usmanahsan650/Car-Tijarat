@@ -10,9 +10,12 @@ h3.Headings{
 #toggleButton.navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E")!important; 
 }
-/* .slide{
+.slide{
   z-index: -1!important;
-} */
+}
+.underlined{
+  text-decoration: underline;
+}
 .navbar-toggler {
   border-color: rgb(36, 36, 34);
   border-radius: 5px;
@@ -43,7 +46,7 @@ margin-left: auto;
 }
 .page-enter{
   opacity: 0.1;
-  transform: translateY(-100%);
+  transform: translateX(-100%);
 }
 .page-enter-active{
   opacity: 1;
@@ -52,11 +55,11 @@ margin-left: auto;
 }
 .page-exit{
   opacity: 1;
-  transform: translateY(0%);
+  transform: translateX(0%);
 }
 .page-exit-active{
   opacity: 0.5;
-  transform: translateY(100%);
+  transform: translateX(100%);
   transition: all 500ms ease-out;
 }
 .TBI{ 
@@ -68,4 +71,24 @@ margin-left: auto;
   height: 100%;
   width: 100%;
   color: white;
+}
+
+.translucent{
+  margin-top: 5px;
+  border-radius: 10px;
+  padding: 20px;
+  background-color:rgba(5, 102, 73, 0.404);
+  
+ 
+}
+.LoginImage{
+  margin-top: 5px;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  content: url(http://localhost:3000/SideLogin.jpg);
+}
+#Logo{
+  transform: scale(2.3);
+  padding: 0px;
+  
 }
