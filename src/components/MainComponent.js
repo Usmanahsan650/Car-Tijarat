@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { Col, Container,Row } from "reactstrap";
 import { Header } from "./HeaderComponent";
 import { Home } from "./HomeComponet";
 import { About } from "./AboutUaComponent";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Badge, Button, Card, CardBody, CardFooter, CardImg, CardSubtitle, CardTitle, Col, Container, Label, Row, Tag } from "reactstrap";
+import { Badge, Button, Card, CardBody, CardFooter, CardImg, CardSubtitle, CardTitle, Col, Container, Row} from "reactstrap";
 import { Slider } from "./slider";
 import { fakeData } from "../fakedata/auctions";
 import Carousel from "react-multi-carousel";

@@ -1,19 +1,23 @@
 import { Container,Col,Row, Form, Input, Button, Label, FormFeedback, FormGroup } from "reactstrap";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 export function Login(props){
     const [email,setEmail]=useState("");
     const [password,setPw]=useState("");
     const [validateEmail,setEmailValidate]=useState(true);
     const [validatePw,setPwVaildate]=useState(true);
-const handleSubmit=(e)=>{
+const handleSubmit=async(e)=>{
     e.preventDefault();
+    setPwVaildate(true);
+    setEmailValidate(true);
     const target=e.target;
+     setEmail(target.email.value);
+     setPw(target.password.value);
+
     console.log(props.as)
     fetch(`http://localhost:5000/api/login/${props.as}`,{
         method:"POST",
         mode:"cors",
-        credentials:"same-origin",
+        credentials:"include",
         headers: {
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -23,8 +27,9 @@ const handleSubmit=(e)=>{
     ).then((data)=>{
         if(data.status)
         {
+            alert("Logged in .Token Cookie saved ")
             
-        }else if(data.err=="email"){
+        }else if(data.err==="email"){
             setEmailValidate(false);
             
         }
@@ -35,7 +40,7 @@ const handleSubmit=(e)=>{
     setTimeout(()=>{
         fetch(`http://localhost:5000/api/login/${props.as}/check`,{
         method:"GET",
-        credentials:"same-origin",
+        credentials:"include",
         mode:'cors'
     })
     },5000)
@@ -52,7 +57,7 @@ const handleSubmit=(e)=>{
             </Col>
             <Col sm="12" md="12" lg="6">
                 <div className="translucent">
-                    <h3 style={{"color":"white","textAlign":"center"}} >Sign in to Car Tijarat </h3>
+                    <h3 style={{"color":"white","textAlign":"center"}} ><b>Sign in to Car Tijarat</b> </h3>
                 <Form onSubmit={handleSubmit} >
                     <FormGroup>
                     <Label for="email">Email</Label>

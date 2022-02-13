@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Navbar, NavItem, NavbarToggler, NavbarBrand, ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu, Nav, Button, Collapse } from 'reactstrap'
 export function Header(props) {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +9,7 @@ export function Header(props) {
     }
     return (<div>
         <Navbar id='navbar' dark expand="lg" >
-            <NavbarBrand id="Logo" href="/" ><img src="Logo2.png" height={"50px"} /></NavbarBrand>
+            <NavbarBrand id="Logo" href="/" ><img src="/logo.png" height={"50px"} /></NavbarBrand>
                  
             <Nav id="Login">
                 <NavItem><Button style={{"marginRight":"5px"}} color="warning">Register</Button></NavItem>
