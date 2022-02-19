@@ -9,7 +9,7 @@ export function Header(props) {
     }
     return (<div>
         <Navbar id='navbar' dark expand="lg" >
-            <NavbarBrand id="Logo" href="/" ><img src="/logo.png" height={"40px"} width={"60px"} /></NavbarBrand>
+            <NavbarBrand id="Logo" href="/" ><img src="/LogoAlpha1.png" height={"25px"} width={"40px"} /></NavbarBrand>
                  
             <Nav id="Login">
                 <NavItem><Button style={{"marginRight":"5px"}} color="warning">Register</Button></NavItem>

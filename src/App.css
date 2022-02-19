@@ -103,9 +103,17 @@ margin-left: auto;
   content: url(http://localhost:3000/SideLogin.jpg);
 }
 #Logo{
-  transform: scale(2.3);
+  transform: scale(3);
   padding: 0px;
   
+}
+@media screen and (min-width: 980px){
+  #Logo{
+    transform: scale(4.8);
+    padding: 0px;
+    margin-right: 3%;
+    margin-left: 1%;
+  } 
 }
 .toggleOptions{
   display: block;
