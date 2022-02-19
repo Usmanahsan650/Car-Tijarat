@@ -10,9 +10,7 @@ const handleSubmit=async(e)=>{
     setPwVaildate(true);
     setEmailValidate(true);
     const target=e.target;
-     setEmail(target.email.value);
-     setPw(target.password.value);
-
+     
     console.log(props.as)
     fetch(`http://localhost:5000/api/login/${props.as}`,{
         method:"POST",
@@ -36,7 +34,14 @@ const handleSubmit=async(e)=>{
         else{
             setPwVaildate(false);
         }
+       
+
     })
+
+    setEmail(target.email.value);
+    setPw(target.password.value);
+
+
     setTimeout(()=>{
         fetch(`http://localhost:5000/api/login/${props.as}/check`,{
         method:"GET",

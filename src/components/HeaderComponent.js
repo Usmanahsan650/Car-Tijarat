@@ -9,7 +9,7 @@ export function Header(props) {
     }
     return (<div>
         <Navbar id='navbar' dark expand="lg" >
-            <NavbarBrand id="Logo" href="/" ><img src="/logo.png" height={"50px"} /></NavbarBrand>
+            <NavbarBrand id="Logo" href="/" ><img src="/logo.png" height={"40px"} width={"60px"} /></NavbarBrand>
                  
             <Nav id="Login">
                 <NavItem><Button style={{"marginRight":"5px"}} color="warning">Register</Button></NavItem>
@@ -32,22 +32,26 @@ export function Header(props) {
                 
                 <NavbarToggler id='toggleButton' onClick={toggle} />
                 <Collapse id='collapseableMenu' isOpen={isOpen} navbar>
-                <Nav>
+                <Nav className="toggleOptions"> 
+                        <NavItem >
+                            <Link  to={"/"}><Button className="NavOptions"  color="light" outline>Home</Button></Link></NavItem>
+                    </Nav>
+                    <Nav className="toggleOptions">
+                        <NavItem><Button className="NavOptions" color="light" outline>How It Works</Button></NavItem>
+                    </Nav>
+                    <Nav className="toggleOptions">
                         <NavItem>
-                            <Link to={"/"}><Button color="light" outline>Home</Button></Link></NavItem>
+                            <Link to={"/about"}><Button className="NavOptions"  color="light" outline>About Us</Button></Link></NavItem>
                     </Nav>
-                    <Nav>
-                        <NavItem><Button color="light" outline>How It Works</Button></NavItem>
-                    </Nav>
-                    <Nav>
+                    <Nav className="toggleOptions">
                         <NavItem>
-                            <Link to={"/about"}><Button color="light" outline>About Us</Button></Link></NavItem>
+                            <Link to="/auctions"><Button className="NavOptions"  color="light" outline>Auctions</Button>
+                            </Link>
+                            </NavItem>
+                            
                     </Nav>
-                    <Nav>
-                        <NavItem><Button color="light" outline>Auctions</Button></NavItem>
-                    </Nav>
-                    <Nav>
-                        <NavItem><Button color="light" outline>Sell A Car</Button></NavItem>
+                    <Nav className="toggleOptions">
+                        <NavItem><Button className="NavOptions"  color="light" outline>Sell A Car</Button></NavItem>
                     </Nav>
                 </Collapse>
                

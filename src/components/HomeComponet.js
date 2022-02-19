@@ -5,7 +5,7 @@ import { fakeData } from "../fakedata/auctions";
 import Carousel from "react-multi-carousel";
 import { FcApproval } from "react-icons/fc";
 import "react-multi-carousel/lib/styles.css";
-const apiServer='http://localhost:5000'
+export const apiServer='http://192.168.0.108:5000'
 export function Home(props) {
   return (
     <React.Fragment>
