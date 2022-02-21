@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Navbar, NavItem, NavbarToggler, NavbarBrand, ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu, Nav, Button, Collapse } from 'reactstrap'
 export function Header(props) {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +9,7 @@ export function Header(props) {
     }
     return (<div>
         <Navbar id='navbar' dark expand="lg" >
-            <NavbarBrand href="/">Car Tijarat</NavbarBrand>
+            <NavbarBrand id="Logo" href="/" ><img src="/LogoAlpha1.png" height={"25px"} width={"40px"} /></NavbarBrand>
                  
             <Nav id="Login">
                 <NavItem><Button style={{"marginRight":"5px"}} color="warning">Register</Button></NavItem>
@@ -20,7 +20,7 @@ export function Header(props) {
                         </DropdownToggle>
                         <DropdownMenu>
                             <DropdownItem header>Login</DropdownItem>
-                            <DropdownItem>As Seller</DropdownItem>
+                            <Link to="/login/seller"> <DropdownItem>As Seller</DropdownItem></Link>
                             <DropdownItem>As Buyer</DropdownItem>
                             
                         </DropdownMenu>
@@ -32,22 +32,26 @@ export function Header(props) {
                 
                 <NavbarToggler id='toggleButton' onClick={toggle} />
                 <Collapse id='collapseableMenu' isOpen={isOpen} navbar>
-                <Nav>
+                <Nav className="toggleOptions"> 
+                        <NavItem >
+                            <Link  to={"/"}><Button className="NavOptions"  color="light" outline>Home</Button></Link></NavItem>
+                    </Nav>
+                    <Nav className="toggleOptions">
+                        <NavItem><Button className="NavOptions" color="light" outline>How It Works</Button></NavItem>
+                    </Nav>
+                    <Nav className="toggleOptions">
                         <NavItem>
-                            <Link to={"/"}><Button color="light" outline>Home</Button></Link></NavItem>
+                            <Link to={"/about"}><Button className="NavOptions"  color="light" outline>About Us</Button></Link></NavItem>
                     </Nav>
-                    <Nav>
-                        <NavItem><Button color="light" outline>How It Works</Button></NavItem>
-                    </Nav>
-                    <Nav>
+                    <Nav className="toggleOptions">
                         <NavItem>
-                            <Link to={"/about"}><Button color="light" outline>About Us</Button></Link></NavItem>
+                            <Link to="/auctions"><Button className="NavOptions"  color="light" outline>Auctions</Button>
+                            </Link>
+                            </NavItem>
+                            
                     </Nav>
-                    <Nav>
-                        <NavItem><Button color="light" outline>Auctions</Button></NavItem>
-                    </Nav>
-                    <Nav>
-                        <NavItem><Button color="light" outline>Sell A Car</Button></NavItem>
+                    <Nav className="toggleOptions">
+                        <NavItem><Button className="NavOptions"  color="light" outline>Sell A Car</Button></NavItem>
                     </Nav>
                 </Collapse>
                

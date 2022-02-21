@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Badge, Button, Card, CardBody, CardFooter, CardImg, CardSubtitle, CardTitle, Col, Container, Label, Row, Tag } from "reactstrap";
+import { Badge, Button, Card, CardBody, CardFooter, CardImg, CardSubtitle, CardTitle, Col, Container, Row} from "reactstrap";
 import { Slider } from "./slider";
 import { fakeData } from "../fakedata/auctions";
 import Carousel from "react-multi-carousel";
 import { FcApproval } from "react-icons/fc";
 import "react-multi-carousel/lib/styles.css";
+export const apiServer='http://192.168.0.108:5000'
 export function Home(props) {
   return (
     <React.Fragment>
@@ -26,25 +27,29 @@ export function Home(props) {
 function FeaturedCars() {
   const [carsList, SetCars] = useState([]);
   if (carsList == "") {
-    // fetch('http://localhost:3000/')
-    SetCars(fakeData);
+    fetch(`${apiServer}/api/auction/auctions_list`,{
+      method:"GET",
+      credentials:"include",
+    }).then((resonse)=>resonse.json()).then((data)=>{
+    SetCars(data);
+    }).catch(err=>console.error(err))
 
   }
   const items = carsList.map((auction) => {
     return (
       <Col sm="9" style={{ "box-shadow": "5px 10px 5px grey" }} key={auction.regNO}>
         <Card>
-          <CardImg src={auction.image} height={"200px"} />
+          <CardImg src={apiServer+auction.Image} height={"200px"} />
           <CardBody>
             <CardTitle>
               <h4 className="Headings">{auction.name}</h4>
             </CardTitle>
             <CardSubtitle>
-              <b><h6>Model:{auction.model}, Seats:{auction.seats}</h6></b>
+              <b><h6>Model:{auction.model}, Seats:{auction.no_of_seats}</h6></b>
             </CardSubtitle>
           </CardBody>
           <CardFooter>
-            <Badge color="success">{auction.Status}</Badge>
+            <Badge color="success">{auction.status}</Badge>
           </CardFooter>
         </Card>
       </Col>

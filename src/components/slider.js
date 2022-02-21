@@ -3,7 +3,7 @@ import { Crouselitems } from "../utils";
 import { UncontrolledCarousel } from "reactstrap";
 export function Slider(){
     return (
-        <UncontrolledCarousel items={Crouselitems}/>
+        <UncontrolledCarousel controls={false} items={Crouselitems}/>
             )
     
 }
