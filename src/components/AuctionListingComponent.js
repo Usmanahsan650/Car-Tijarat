@@ -39,7 +39,7 @@ function CreateCards(List,gridView,indexes){
             <CardTitle>
               <h4 className="Headings">{auction.name}</h4>
             </CardTitle>
-            <CardSubtitle>
+            <CardSubtitle >
               <b><h6>Model:{auction.model}|Seats:{auction.no_of_seats}|RegNO:{auction.RegNo}</h6></b>
             </CardSubtitle>
           </CardBody>
@@ -62,7 +62,7 @@ function CreateCards(List,gridView,indexes){
                       <h4 className="Headings">{auction.name}</h4>
                     </CardTitle>
                     <CardSubtitle>
-                      <b><h6>Model:{auction.model}, Seats:{auction.no_of_seats}</h6></b>
+                      <b><h6>Model:{auction.model}, Seats:{auction.no_of_seats},Brand:{auction.manufacturer}</h6></b>
                     </CardSubtitle>
                   </CardBody>
                   <CardFooter>

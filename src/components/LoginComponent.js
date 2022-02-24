@@ -1,6 +1,8 @@
 import { Container,Col,Row, Form, Input, Button, Label, FormFeedback, FormGroup } from "reactstrap";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 export function Login(props){
+    const history=useHistory();
     const [email,setEmail]=useState("");
     const [password,setPw]=useState("");
     const [validateEmail,setEmailValidate]=useState(true);
@@ -25,7 +27,11 @@ const handleSubmit=async(e)=>{
     ).then((data)=>{
         if(data.status)
         {
-            alert("Logged in .Token Cookie saved ")
+
+            alert("Logged in .Token Cookie saved ");
+            props.setlogin(true)
+            props.setEntity(true);
+            history.replace("/SellYourCar");
             
         }else if(data.err==="email"){
             setEmailValidate(false);

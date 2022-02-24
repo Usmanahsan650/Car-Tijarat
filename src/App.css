@@ -1,8 +1,11 @@
+#Header{
+  top: 0;
+  position: sticky;
+  z-index: 1;
+}
 #navbar{
   background-color: teal;
   color: white;
-  position: sticky;
-  top: 0px
 }
 h3.Headings{
   color: teal!important;
@@ -37,9 +40,10 @@ h4.Headings{
   z-index: -1;
 }
 #Membership{
+  box-shadow: 5px 5px rgb(102, 189, 247);
   height: 350px;
   border-radius:10px;
-  border-color: black;
+  border-color: rgb(255, 255, 255);
   margin-bottom: 10px;
   padding: 5px;
 }
@@ -175,4 +179,31 @@ margin-left: auto;
 .gridButton{
   float: right;
   font-size: x-small;
+}
+.breadCrumbs{
+  background-color: #f47a60;
+  width: fit-content;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 0px 0px 10px 10px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.BreadCrumbItem {
+  color: black;
+  text-decoration: unset;
+}
+.SellCarContainer{
+ 
+}
+.FormContainer{
+  border-radius: 5px;
+  padding: 5px;
+  color: black;
+  background-color:rgba(5, 102, 73, 0.514);
+  margin-bottom: 10px;
+  text-align: center;
+  margin-top: 10px;
+
 }
