@@ -1,11 +1,33 @@
+import { keyboard } from "@testing-library/user-event/dist/keyboard";
 import React from "react";
+import { apiServer } from "./HomeComponet";
 import { Container,Row,Col, Form, Input, Label, FormGroup, Button } from "reactstrap";
-function handleSubmit(e){
-    e.preventDefault();
-    const target=e.target;
-    console.log(target.name.value)
-}
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 export function SellCar(props){
+    const history=useHistory();
+    const user=JSON.parse(window.localStorage.getItem("user"));
+    console.log(user)
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+        
+        const f=new FormData(e.target)
+       const data=Object.fromEntries(f.entries());
+        fetch(`${apiServer}/api/vehicle/vehicle/register`,{
+            mode:'cors',
+            method:'POST',
+           
+            credentials:'include',
+            body:f
+        }).then((res)=>res.josn()).then(saved=> {
+            if(saved)
+            {
+                alert("Your Car is registered successfully!");
+                history.replace("/home")
+            }
+    
+        })
+    }
     return(
         <Container className="SellCarContainer">
             <Row>
@@ -15,7 +37,7 @@ export function SellCar(props){
                 <Col sm="12" md="12" className="FormContainer">
                     <h4 >Car Information</h4>
                     <hr/>
-                    <Form onSubmit={handleSubmit}>
+                    <Form id="registerCar" encType="multipart/form-data" onSubmit={handleSubmit}>
                         <Row>
                         <Col md="6">
                         <FormGroup>
@@ -27,7 +49,7 @@ export function SellCar(props){
                         <Input type="text" name="manufacturer" id="manufacturer" placeholder="Make**"/>
                         </FormGroup>
                         <FormGroup>
-                        <Label for="manufacturer">Model Year</Label>
+                        <Label for="modelNo">Model Year</Label>
                         <Input type="number" min={1980} max={2022} name="modelNo" id="modelNo" placeholder="Model"/>
                         </FormGroup>
                         <FormGroup>
@@ -36,7 +58,7 @@ export function SellCar(props){
                         </FormGroup>
                         <FormGroup>
                         <Label for="RegNO">Registration #</Label>
-                        <Input type="text" minLength={7} maxLength={7} name="RegNo"/>
+                        <Input type="text" minLength={7} maxLength={7} placeholder="Registration ###-###" name="RegNo"/>
                         </FormGroup>
                         </Col>
                         <Col md="6">
@@ -82,11 +104,22 @@ export function SellCar(props){
                             </Label>
                             <Input type="textarea" maxLength={200} name="description" id="description"/>
                         </FormGroup>
+                        
+                        <Input type="hidden" name="ownerCNIC" value={user.cnic}/>
                         </Col>
                         </Row>
-                        <FormGroup >
-                            <Button className="m-auto" outline dark type="submit">Submit</Button>
+                        <Col sm="12" md="6" className="offset-md-3">
+                        <FormGroup>
+                            <Label for="Image">
+                                Image
+                            </Label>
+                            <Input type="file"  name="Image" id="Image"/>
                         </FormGroup>
+                        </Col>
+                        <Col sm="12" md="4" className="offset-md-4">
+                            <Button className="m-auto expanded"  color="warning" type="submit">Submit</Button>
+                        </Col>
+                        
                     </Form>
                 </Col>
             </Row>

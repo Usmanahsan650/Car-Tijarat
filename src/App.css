@@ -181,6 +181,8 @@ margin-left: auto;
   font-size: x-small;
 }
 .breadCrumbs{
+  position: sticky;
+  top: 0;
   background-color: #f47a60;
   width: fit-content;
   padding-left: 5px;
@@ -206,4 +208,12 @@ margin-left: auto;
   text-align: center;
   margin-top: 10px;
 
+}
+.expanded{
+  width: -webkit-fill-available;
+  width: -moz-available;
+}
+.transButton{
+  background-color: transparent;
+  border: 0px;
 }

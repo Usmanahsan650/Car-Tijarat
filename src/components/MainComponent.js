@@ -10,16 +10,27 @@ import { AuctionsList } from "./AuctionListingComponent";
 import { useState } from "react/cjs/react.development";
 import { SellerOptions } from "./sellerOptionsComponent";
 import { SellCar } from "./SellCarComponent";
+import { useEffect } from "react";
+ 
 export function Main(props){
     const [loggedin,setlogin]=useState(false);
     const [isSeller,setSeller]=useState(false);
     const [isBuyer,setBuyer]=useState(false)
     const location=useLocation()
+    useEffect(()=>{
+        const user=window.localStorage.getItem("user");
+   console.log(user)
+   if(user) 
+    setlogin(true);
+    else
+    setlogin(false)
+
+    },[])
     return(
         <React.Fragment>
-        <Header loggedin={loggedin} seller={isSeller} buyer={isBuyer}/>
+        <Header loggedin={loggedin} setlogin={setlogin} seller={isSeller} buyer={isBuyer}/>
         {
-            isSeller?
+            loggedin&&isSeller?
             <SellerOptions/>
             :
             <div></div>

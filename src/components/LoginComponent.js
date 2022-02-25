@@ -27,8 +27,9 @@ const handleSubmit=async(e)=>{
     ).then((data)=>{
         if(data.status)
         {
-
+            console.log(data)
             alert("Logged in .Token Cookie saved ");
+            window.localStorage.setItem("user",JSON.stringify(data));
             props.setlogin(true)
             props.setEntity(true);
             history.replace("/SellYourCar");

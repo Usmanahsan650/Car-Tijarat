@@ -1,7 +1,22 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Navbar, NavItem, NavbarToggler, NavbarBrand, ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu, Nav, Button, Collapse } from 'reactstrap'
+import { apiServer } from "./HomeComponet";
+
+
+function logout(setlogin){
+    window.localStorage.removeItem("user")
+    setlogin(false);
+    fetch(`${apiServer}/api/logout`,{
+        method:"GET",
+        credentials:"include",
+        mode:"cors"
+    })
+}
 export function Header(props) {
+    const history=useHistory();
+    const user=JSON.parse(window.localStorage.getItem("user"));
     const [isOpen, setIsOpen] = useState(false);
     const [LoginOpen, setLoginOpen] = useState(false);
     const toggle = () => {
@@ -34,16 +49,15 @@ export function Header(props) {
                 :
                 <Nav>
                     <NavItem>
-                        {
-                            props.seller?
-                            <p>Hey Seller</p>
-                            :
-                            <p>Hey Buyer</p>
-                        }
-                    </NavItem>
-                    <NavItem>
-                    <Button style={{"marginRight":"5px"}} outline color="primary">Logout</Button>
-                    </NavItem>
+                    <ButtonDropdown isOpen={LoginOpen} toggle={() => setLoginOpen(!LoginOpen)}>
+                        <DropdownToggle color="primary" caret >
+                            Logged in 
+                        </DropdownToggle>
+                        <DropdownMenu style={{"backgroundColor":"#f15f5f"}}>
+                            <DropdownItem header>{user.name}</DropdownItem>
+                           <DropdownItem ><button className="transButton" onClick={()=>{logout(props.setlogin);history.replace("/home")}}>Logout</button></DropdownItem>
+                        </DropdownMenu>
+                    </ButtonDropdown></NavItem>
                 </Nav>
                 }   
                 <NavbarToggler id='toggleButton' onClick={toggle} />
