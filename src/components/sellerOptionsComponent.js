@@ -5,10 +5,10 @@ export function SellerOptions(){
     return(
         <Breadcrumb className="breadCrumbs">
         <BreadcrumbItem >
-        <Link className="BreadCrumbItem " >View your cars</Link>
+        <Link className="BreadCrumbItem " to="/registeredCars" >View your cars</Link>
         </BreadcrumbItem >
         <BreadcrumbItem >
-        <Link className="BreadCrumbItem " >View your auction listings</Link>
+        <Link className="BreadCrumbItem " >View your auctions</Link>
         </BreadcrumbItem >
         <BreadcrumbItem>
         <Link className="BreadCrumbItem " to="/SellYourCar">Sell Your Car</Link>

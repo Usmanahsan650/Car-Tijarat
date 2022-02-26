@@ -11,6 +11,7 @@ import { useState } from "react/cjs/react.development";
 import { SellerOptions } from "./sellerOptionsComponent";
 import { SellCar } from "./SellCarComponent";
 import { useEffect } from "react";
+import { RegisteredCars } from "./RegisteredCarsComponent";
  
 export function Main(props){
     const [loggedin,setlogin]=useState(false);
@@ -30,7 +31,7 @@ export function Main(props){
         <React.Fragment>
         <Header loggedin={loggedin} setlogin={setlogin} seller={isSeller} buyer={isBuyer}/>
         {
-            loggedin&&isSeller?
+            loggedin?
             <SellerOptions/>
             :
             <div></div>
@@ -38,6 +39,7 @@ export function Main(props){
         <TransitionGroup>
         <CSSTransition key={location.key} classNames="page" timeout={500}>
         <Switch>
+        <Route path={"/registeredCars"} component={RegisteredCars} />
         <Route path={"/SellYourCar"} component={SellCar} />
         <Route path={"/login/seller"} component={()=><Login setlogin={setlogin} setEntity={setSeller} as={location.pathname.split("/").pop()}/>} /> 
         <Route path={"/login/buyer"} component={()=><Login setlogin={setlogin} setEntity={setSeller} as={location.pathname.split("/").pop()}/>} /> 

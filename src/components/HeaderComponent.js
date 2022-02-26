@@ -53,7 +53,7 @@ export function Header(props) {
                         <DropdownToggle color="primary" caret >
                             Logged in 
                         </DropdownToggle>
-                        <DropdownMenu style={{"backgroundColor":"#f15f5f"}}>
+                        <DropdownMenu style={{"backgroundColor":"#f15f5f" ,"zIndex":"1"}}>
                             <DropdownItem header>{user.name}</DropdownItem>
                            <DropdownItem ><button className="transButton" onClick={()=>{logout(props.setlogin);history.replace("/home")}}>Logout</button></DropdownItem>
                         </DropdownMenu>
