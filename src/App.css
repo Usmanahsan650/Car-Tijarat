@@ -220,3 +220,13 @@ margin-left: auto;
     font-size: 9pt;
   }
 }
+.expanded{
+  width: 100%;
+  text-align: center;
+
+}
+.modal-content{
+  box-shadow: 5px 5px rgb(102, 189, 247);
+  background-color: rgb(43, 121, 121);
+  color: white;
+}

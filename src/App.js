@@ -1,5 +1,6 @@
 import {BrowserRouter} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-datetime/css/react-datetime.css";
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { Main } from './components/MainComponent';
 import './App.css';
