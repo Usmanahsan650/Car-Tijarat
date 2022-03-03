@@ -11,6 +11,7 @@ h3.Headings{
   color: teal!important;
 }
 .statusBadge{
+  margin-bottom: 5px;
   width: 100%;
   }
 h4.Headings{
@@ -181,10 +182,12 @@ margin-left: auto;
   font-size: x-small;
 }
 .breadCrumbs{
+  
   position: sticky;
   top: 42pt;
   z-index: 1;
-  background-color: #f47a60;
+  /* background-color: #f47a60; */
+  background-color: teal;
   width: fit-content;
   padding-left: 5px;
   padding-right: 5px;
@@ -194,7 +197,7 @@ margin-left: auto;
 
 }
 .BreadCrumbItem {
-  color: black;
+  color: white;
   text-decoration: unset;
 }
 .FormContainer{
@@ -227,6 +230,13 @@ margin-left: auto;
 }
 .modal-content{
   box-shadow: 5px 5px rgb(102, 189, 247);
-  background-color: rgb(43, 121, 121);
-  color: white;
+  /* background-color: rgb(43, 121, 121); */
+  /* color: white; */
+}
+.inputBlack{
+  color: black;
+}
+
+.Auccards{
+  border-radius: 10px;
 }

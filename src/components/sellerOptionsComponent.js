@@ -8,7 +8,7 @@ export function SellerOptions(){
         <Link className="BreadCrumbItem " to="/registeredCars" >View your cars</Link>
         </BreadcrumbItem >
         <BreadcrumbItem >
-        <Link className="BreadCrumbItem " >View your auctions</Link>
+        <Link className="BreadCrumbItem " to="/yourAuctions" >View your auctions</Link>
         </BreadcrumbItem >
         <BreadcrumbItem>
         <Link className="BreadCrumbItem " to="/SellYourCar">Sell Your Car</Link>

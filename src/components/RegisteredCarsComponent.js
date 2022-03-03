@@ -4,6 +4,13 @@ import { useState } from "react/cjs/react.development";
 import { useEffect } from "react/cjs/react.development";
 import { Button, Container,Col,Row ,Card,CardImg,CardBody,CardTitle,CardFooter,CardSubtitle, Modal, ModalHeader, ModalBody, Form, Input, FormGroup, Label} from "reactstrap";
 import { apiServer } from "./HomeComponet";
+function validateDate(start,end){
+  const d1=new Date(start);
+  const d2=new Date(end);
+  if(d2>d1);
+  return true;
+  return false 
+}
 export function RegisteredCars(props){
     const user=JSON.parse( localStorage.getItem("user"));
     const [Registeredcars,setRegisteredCars]=useState([]);
@@ -29,7 +36,19 @@ export function RegisteredCars(props){
     let handleSubmit=(e)=>{
       e.preventDefault();
       const target=e.target;
-      console.log(target.end.value);
+      console.log(validateDate(target.start_date_time,target.end_date_time));
+      const form=new FormData(target);
+      const data=Object.fromEntries(form.entries());
+      console.log(data);
+      fetch(`${apiServer}/api/auction/register_for_auction`,{
+        method:"POST",
+        mode:"cors",
+        headers:{
+          'Content-Type':'application/json'
+        },
+        credentials:"include",
+        body:JSON.stringify(data)
+      }).then(res=>res.json()).then(res=>{alert(res)}).catch((err)=>{console.log(err)});
 
     }
     let items = Registeredcars.map((car) => {
@@ -70,23 +89,23 @@ export function RegisteredCars(props){
             <Form onSubmit={handleSubmit}>
              <FormGroup>
               <label for="start_date_time">Auction Starting Date {"&"} Time</label>
-             <Datetime  dateFormat={"YYYY-M-DD"} timeFormat={"H:mm:ss"} inputProps={{required:true,name:"start_date_time", placeholder:"Starting Date&Time"}}/>
+             <Datetime className="inputBlack" dateFormat={"YYYY-M-DD"} timeFormat={"H:mm:ss"} inputProps={{required:true,name:"start_date_time", placeholder:"Starting Date&Time"}}/>
              </FormGroup>
              <FormGroup>
              <label for="end_date_time">Auction Ending date {"&"} time</label>  
-              <Datetime dateFormat={"YYYY-M-DD"} timeFormat={"H:mm:ss"} inputProps={{required:true,name:"end_date_time",placeholder:"Ending Date&Time"}}/>
+              <Datetime className="inputBlack" dateFormat={"YYYY-M-DD"} timeFormat={"H:mm:ss"} inputProps={{required:true,name:"end_date_time",placeholder:"Ending Date&Time"}}/>
               </FormGroup>
               <FormGroup>
                 <Label for="startingPrice">Starting Bid Price</Label>
-              <Input  type="number" name="startingPrice"placeholder="Starting bid price(if any)"/>
+              <Input className="inputBlack"  type="number" name="startingPrice"placeholder="Starting bid price(if any)"/>
               </FormGroup>
               <FormGroup>
               <label for="buyNow">Buy Now Clause Price</label>  
-              <Input type="number" name="buyNow"placeholder="buy now price(if any)"/>
+              <Input className="inputBlack" type="number" name="buyNow"placeholder="buy now price(if any)"/>
               </FormGroup>
               <Input type="hidden" name="sellerID" value={user.sellerID}/>
-              <Input type="hidden" name="aucVehicle" value={Auction}/>
-              <Button type="submit" outline color="light" className="expanded mt-2">Submit</Button>
+              <Input type="hidden" name="auc_vehicle" value={Auction}/>
+              <Button className="inputBlack" type="submit" outline color="dark" className="expanded mt-2">Submit</Button>
             </Form>
           </ModalBody>
         </Modal>

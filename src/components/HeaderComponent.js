@@ -80,9 +80,9 @@ export function Header(props) {
                             </NavItem>
                             
                     </Nav>
-                    <Nav className="toggleOptions">
+                    {/* <Nav className="toggleOptions">
                         <NavItem><Button className="NavOptions"  color="light" outline>Sell A Car</Button></NavItem>
-                    </Nav>
+                    </Nav> */}
                 </Collapse>
                
                 
