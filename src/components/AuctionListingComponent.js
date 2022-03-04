@@ -4,7 +4,7 @@ import { Link, useHistory, useLocation } from "react-router-dom/cjs/react-router
 import { Pagination,PaginationItem,Container,Row,Col, Card, CardHeader, CardImg,CardBody,CardFooter,CardSubtitle,Badge, CardTitle, List, Breadcrumb, BreadcrumbItem, Input, Label, Button, PaginationLink} from "reactstrap";
 import {apiServer} from './HomeComponet';
 function Fetchdata(setList,options){
-    console.log(apiServer)
+
     if(!options){
         fetch(`${apiServer}/api/auction/auctions_list`,{
             method:"GET",
@@ -14,9 +14,24 @@ function Fetchdata(setList,options){
           }).catch(err=>console.error(err));
       
     }
+    else{
+        const query=document.getElementById("query").value.trim();
+        fetch(`${apiServer}/api/auction/auctions_list?search=${query}`,{
+            method:"GET",
+            credentials:"include",
+          }).then((resonse)=>resonse.json()).then((data)=>{
+          if(data!="No auctions found")
+            setList(data);
+            else{
+                alert("No auctions found try searching other cars")
+            }
+          }).catch(err=>console.error(err));
+
+    }
 
 }
 function CreateCards(List,gridView,indexes){
+    
     if(!List){
         return(<div></div>)
     }
@@ -121,11 +136,13 @@ export function  AuctionsList(options){
                 <Col sm="12" id="search">
                     <Label Class="Label">Sort&nbsp;By&nbsp;</Label>
                     <select  className="searchInput">
-                        <option>upload date descending</option>
+                        <option>starting date descending</option>
                     </select>
                     <Label for="query" Class="Label">&nbsp;Search:&nbsp; </Label>
-                    <input  name="query" className="searchInput" placeholder="name|model|manufacturer" type="texts"  />
-                    <button style={{"borderRadius":"5px"}}>Search</button>
+                   
+                    <input  name="query" id="query" className="searchInput" placeholder="name|model|manufacturer" type="texts"  />
+                    <button style={{"borderRadius":"5px"}} onClick={()=>Fetchdata(setList,true)}>Search</button>
+                    
                 </Col>
                 <Breadcrumb>
             <BreadcrumbItem>

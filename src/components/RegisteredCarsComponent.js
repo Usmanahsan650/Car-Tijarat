@@ -65,7 +65,7 @@ export function RegisteredCars(props){
                 </CardSubtitle>
               </CardBody>
               <CardFooter>
-                  <Button onClick={()=>showForm(car.RegNo)} outline color="dark">Set Car On Auction</Button>
+                  <Button onClick={()=>showForm(car.RegNo)} style={{"float":"right"}} color="success">Set Car On Auction</Button>
               </CardFooter>
             </Card>
           </Col>
