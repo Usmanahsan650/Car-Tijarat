@@ -37,7 +37,7 @@ const handleSubmit=async(e)=>{
             if(props.as === "buyer"){
                 props.setBuyer(true);
                 props.setSeller(false);
-                history.replace("/home");
+                history.replace("/auctions");
             }
 
             else if(props.as === "seller"){
