@@ -5,7 +5,7 @@ import { Navbar, NavItem, NavbarToggler, NavbarBrand, ButtonDropdown, DropdownTo
 import { apiServer } from "./HomeComponet";
 
 
-function logout(setlogin){
+function Logout(setlogin){
     window.localStorage.removeItem("user")
     setlogin(false);
     fetch(`${apiServer}/api/logout`,{
@@ -13,6 +13,7 @@ function logout(setlogin){
         credentials:"include",
         mode:"cors"
     })
+    
 }
 export function Header(props) {
     const history=useHistory();
@@ -22,6 +23,7 @@ export function Header(props) {
     const toggle = () => {
         setIsOpen(!isOpen);
     }
+    
     return (<div id="Header">
         <Navbar id='navbar' dark expand="lg" >
             <NavbarBrand id="Logo" href="/" ><img src="/LogoAlpha1.png" height={"25px"} width={"40px"} /></NavbarBrand>
@@ -58,7 +60,7 @@ export function Header(props) {
                         </DropdownToggle>
                         <DropdownMenu style={{"backgroundColor":"#f15f5f" ,"zIndex":"1"}}>
                             <DropdownItem header>{user.name}</DropdownItem>
-                           <DropdownItem ><button className="transButton" onClick={()=>{logout(props.setlogin);history.replace("/home");}}>Logout</button></DropdownItem>
+                           <DropdownItem ><button className="transButton" onClick={()=>{Logout(props.setlogin);history.replace("/home");}}>Logout</button></DropdownItem>
                         </DropdownMenu>
                     </ButtonDropdown></NavItem>
                 </Nav>

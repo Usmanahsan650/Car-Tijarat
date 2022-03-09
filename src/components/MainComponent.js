@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { Login } from "./LoginComponent";
 import { AuctionsList } from "./AuctionListingComponent";
 import { useState } from "react/cjs/react.development";
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { SellerOptions } from "./sellerOptionsComponent";
 import { SellCar } from "./SellCarComponent";
 import { useEffect } from "react";
@@ -22,13 +23,18 @@ export function Main(props){
     
     const location=useLocation();
     useEffect(()=>{
-        const user=window.localStorage.getItem("user");
+        let user=window.localStorage.getItem("user");
         console.log(user);
+        user=JSON.parse(user);
+
    if(user) 
-    setlogin(true);
+    {setlogin(true);
+        if(user.sellerID){
+            setSeller(true)
+        }}
     else
     setlogin(false);
-
+    
     },[]);
 
     return(
@@ -42,7 +48,9 @@ export function Main(props){
             <div></div>
         }
 
-        <Switch>
+<TransitionGroup>
+                <CSSTransition key={location.key} classNames="page" timeout={1000}>
+        <Switch location={location}>
 
         <Route path={"/yourAuctions"} component={()=><ViewAuctionsList sellerID={JSON.parse(window.localStorage.getItem("user")).sellerID}/>} />
         
@@ -59,6 +67,8 @@ export function Main(props){
         <Route path={"/"} component={Home} /> 
          
         </Switch>
+        </CSSTransition>
+        </TransitionGroup>
 
         </React.Fragment>
     )

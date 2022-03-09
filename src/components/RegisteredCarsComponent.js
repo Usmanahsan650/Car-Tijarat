@@ -1,5 +1,6 @@
 import React from "react";
 import Datetime from 'react-datetime';
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useState } from "react/cjs/react.development";
 import { useEffect } from "react/cjs/react.development";
 import { Button, Container,Col,Row ,Card,CardImg,CardBody,CardTitle,CardFooter,CardSubtitle, Modal, ModalHeader, ModalBody, Form, Input, FormGroup, Label} from "reactstrap";
@@ -16,6 +17,11 @@ export function RegisteredCars(props){
     const [Registeredcars,setRegisteredCars]=useState([]);
     const [Auction,setAuction]=useState("");
     const [isOpen,SetIsOpen]=useState(false);
+    const history=useHistory()
+    if(!user){
+      history.replace("/home");
+      window.location.reload()
+    }
     useEffect(()=>{
         fetch(`${apiServer}/api/vehicle/vehicle/getRegisteredCars`,{
             method:"POST",

@@ -43,7 +43,7 @@ const handleSubmit=async(e)=>{
             else if(props.as === "seller"){
                 props.setBuyer(false);
                 props.setSeller(true);
-                history.replace("/SellYourCar");
+                history.replace("/registeredCars");
             }
             
         }else if(data.err==="email"){
