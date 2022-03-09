@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import { Pagination,PaginationItem,Container,Row,Col, Card, CardHeader, CardImg,CardBody,CardFooter,CardSubtitle,Badge, CardTitle, List, Breadcrumb, BreadcrumbItem, Input, Label, Button, PaginationLink} from "reactstrap";
+import { Container,Row,Col, Card, CardImg,CardBody,CardFooter,CardSubtitle,Badge, CardTitle, Button} from "reactstrap";
 import {apiServer} from './HomeComponet';
 function Fetchdata(setList,options,id){
     //console.log(apiServer)

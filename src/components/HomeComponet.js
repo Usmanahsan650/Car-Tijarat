@@ -45,7 +45,7 @@ function FeaturedCars() {
               <h4 className="Headings">{auction.name}</h4>
             </CardTitle>
             <CardSubtitle>
-              <b><h6>Model:{auction.model}, Seats:{auction.no_of_seats}</h6></b>
+              <b><h6>Model:{auction.modelNo}, Seats:{auction.no_of_seats}</h6></b>
             </CardSubtitle>
           </CardBody>
           <CardFooter>

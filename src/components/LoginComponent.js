@@ -1,19 +1,21 @@
 import { Container,Col,Row, Form, Input, Button, Label, FormFeedback, FormGroup } from "reactstrap";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 export function Login(props){
     const history=useHistory();
     const [email,setEmail]=useState("");
     const [password,setPw]=useState("");
     const [validateEmail,setEmailValidate]=useState(true);
     const [validatePw,setPwVaildate]=useState(true);
+
 const handleSubmit=async(e)=>{
     e.preventDefault();
     setPwVaildate(true);
     setEmailValidate(true);
     const target=e.target;
      
-    console.log(props.as)
+    //console.log(props.as)
     fetch(`http://localhost:5000/api/login/${props.as}`,{
         method:"POST",
         mode:"cors",
@@ -28,11 +30,21 @@ const handleSubmit=async(e)=>{
         if(data.status)
         {
             console.log(data)
-            alert("Logged in .Token Cookie saved ");
+            alert("Logged in. Token Cookie saved. ");
             window.localStorage.setItem("user",JSON.stringify(data));
-            props.setlogin(true)
-            props.setEntity(true);
-            history.replace("/SellYourCar");
+            props.setlogin(true);
+
+            if(props.as === "buyer"){
+                props.setBuyer(true);
+                props.setSeller(false);
+                history.replace("/home");
+            }
+
+            else if(props.as === "seller"){
+                props.setBuyer(false);
+                props.setSeller(true);
+                history.replace("/SellYourCar");
+            }
             
         }else if(data.err==="email"){
             setEmailValidate(false);
@@ -49,15 +61,15 @@ const handleSubmit=async(e)=>{
     setPw(target.password.value);
 
 
-    setTimeout(()=>{
-        fetch(`http://localhost:5000/api/login/${props.as}/check`,{
-        method:"GET",
-        credentials:"include",
-        mode:'cors'
-    })
-    },5000)
+    // setTimeout(()=>{
+    //     fetch(`http://localhost:5000/api/login/${props.as}/check`,{
+    //     method:"GET",
+    //     credentials:"include",
+    //     mode:'cors'
+    // })
+    // },5000)
     
-    console.log(target.email.value)
+    //console.log(target.email.value)
 }
     return(
         <Container>

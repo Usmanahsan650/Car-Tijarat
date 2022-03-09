@@ -1,4 +1,3 @@
-import react from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { Breadcrumb,BreadcrumbItem } from "reactstrap";
 export function SellerOptions(){
