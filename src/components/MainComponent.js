@@ -13,22 +13,24 @@ import { SellCar } from "./SellCarComponent";
 import { useEffect } from "react";
 import { RegisteredCars } from "./RegisteredCarsComponent";
 import { ViewAuctionsList } from "./ViewYourAucComponent";
+import AuctionRoom from "./AuctionRoom";
  
 export function Main(props){
     const [loggedin,setlogin]=useState(false);
     const [isSeller,setSeller]=useState(false);
     const [isBuyer,setBuyer]=useState(false);
     
-    const location=useLocation()
+    const location=useLocation();
     useEffect(()=>{
         const user=window.localStorage.getItem("user");
-        console.log(user)
+        console.log(user);
    if(user) 
     setlogin(true);
     else
-    setlogin(false)
+    setlogin(false);
 
-    },[])
+    },[]);
+
     return(
         <React.Fragment>
         <Header loggedin={loggedin} setlogin={setlogin} seller={isSeller} buyer={isBuyer}/>
@@ -38,10 +40,15 @@ export function Main(props){
             :
             <div></div>
         }
-        <TransitionGroup>
-        <CSSTransition key={location.key} classNames="page" timeout={500}>
+        {/* <TransitionGroup>
+        <CSSTransition key={location.key} classNames="page" timeout={500}> */}
         <Switch>
         <Route path={"/yourAuctions"} component={()=><ViewAuctionsList sellerID={JSON.parse(window.localStorage.getItem("user")).sellerID}/>} />
+        
+        <Route path="/auction-room/:AuctionID">
+            <AuctionRoom />
+        </Route>
+
         <Route path={"/registeredCars"} component={RegisteredCars} />
         <Route path={"/SellYourCar"} component={SellCar} />
         <Route path={"/login/seller"} component={()=><Login setlogin={setlogin} setEntity={setSeller} as={location.pathname.split("/").pop()}/>} /> 
@@ -51,8 +58,8 @@ export function Main(props){
         <Route path={"/"} component={Home} /> 
          
         </Switch>
-        </CSSTransition>
-        </TransitionGroup>
+        {/* </CSSTransition>
+        </TransitionGroup> */}
         </React.Fragment>
     )
 }

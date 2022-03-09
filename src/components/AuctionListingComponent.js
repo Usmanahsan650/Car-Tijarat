@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { Pagination,PaginationItem,Container,Row,Col, Card, CardHeader, CardImg,CardBody,CardFooter,CardSubtitle,Badge, CardTitle, List, Breadcrumb, BreadcrumbItem, Input, Label, Button, PaginationLink} from "reactstrap";
@@ -55,13 +55,22 @@ function CreateCards(List,gridView,indexes){
               <h4 className="Headings">{auction.name}</h4>
             </CardTitle>
             <CardSubtitle >
-              <b><h6>Model:{auction.model}|Seats:{auction.no_of_seats}|RegNO:{auction.RegNo}</h6></b>
+              <b><h6>Model:{auction.modelNo}|Seats:{auction.no_of_seats}|RegNO:{auction.RegNo}</h6></b>
             </CardSubtitle>
           </CardBody>
           </Col>
           <Col sm="3">
             <Badge className="statusBadge" color="success">{auction.status}</Badge>
-            <Button className="bottomRight" outline color="primary">Go to Auction Room</Button>
+            <Link 
+              to={{ 
+                pathname: `/auction-room/${auction.id}`,
+                state: {
+                  data: auction
+                },
+                }}
+            >
+              <Button className="bottomRight" outline color="primary">Go to Auction Room</Button>
+            </Link>
           </Col>
           </Row>
         </Card>
@@ -77,12 +86,21 @@ function CreateCards(List,gridView,indexes){
                       <h4 className="Headings">{auction.name}</h4>
                     </CardTitle>
                     <CardSubtitle>
-                      <b><h6>Model:{auction.model}, Seats:{auction.no_of_seats},Brand:{auction.manufacturer}</h6></b>
+                      <b><h6>Model:{auction.modelNo}, Seats:{auction.no_of_seats},Brand:{auction.manufacturer}</h6></b>
                     </CardSubtitle>
                   </CardBody>
                   <CardFooter>
                     <Badge color="success">{auction.status}</Badge>
-                    <Button className="gridButton" outline color="primary">Go to Auction Room</Button>
+                    <Link 
+                        to={{ 
+                          pathname: `/auction-room/${auction.id}`,
+                          state: {
+                            data: auction
+                          },
+                         }}
+                    >
+                        <Button className="gridButton" outline color="primary">Go to Auction Room</Button>
+                    </Link>
                   </CardFooter>
                 </Card>
               </Col>
@@ -120,8 +138,10 @@ export function  AuctionsList(options){
         return CreateCards(list,gridView,indexes)
     }
     const history=useHistory();
-    if(list.length==0)
-    Fetchdata(setList,false);
+    
+    useEffect(() => {
+        Fetchdata(setList,false);
+    }, []);
     
     return(
         <Container>
