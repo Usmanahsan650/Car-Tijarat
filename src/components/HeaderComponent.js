@@ -27,8 +27,11 @@ export function Header(props) {
             <NavbarBrand id="Logo" href="/" ><img src="/LogoAlpha1.png" height={"25px"} width={"40px"} /></NavbarBrand>
             { props.loggedin===false?
             <Nav id="Login">
-                <NavItem> 
-                    <Button style={{"marginRight":"5px"}} outline color="warning">Register</Button></NavItem>
+                <NavItem >
+                    <Link to="/register"> 
+                    <Button style={{"marginRight":"5px"}} outline color="warning">Register</Button>
+                    </Link></NavItem>
+                    
                 <NavItem><div className="dropdown" style={{"marginRight":"10px"}}>
 
                     <ButtonDropdown isOpen={LoginOpen} toggle={() => setLoginOpen(!LoginOpen)}>

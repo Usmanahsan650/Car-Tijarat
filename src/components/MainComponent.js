@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { RegisteredCars } from "./RegisteredCarsComponent";
 import { ViewAuctionsList } from "./ViewYourAucComponent";
 import AuctionRoom from "./AuctionRoom";
+import { Register } from "./RegisterUserComponent";
  
 export function Main(props){
     const [loggedin,setlogin]=useState(false);
@@ -48,7 +49,7 @@ export function Main(props){
         <Route path="/auction-room/:AuctionID">
             <AuctionRoom />
         </Route>
-
+        <Route path={"/register"} component={Register} />
         <Route path={"/registeredCars"} component={RegisteredCars} />
         <Route path={"/SellYourCar"} component={SellCar} />
         <Route path={"/login/seller"} component={()=><Login setlogin={setlogin} setSeller={setSeller} setBuyer={setBuyer} as={location.pathname.split("/").pop()}/>} /> 

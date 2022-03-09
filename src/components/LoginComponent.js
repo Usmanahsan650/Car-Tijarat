@@ -50,8 +50,11 @@ const handleSubmit=async(e)=>{
             setEmailValidate(false);
             
         }
-        else{
+        else if(data.err==="password"){
             setPwVaildate(false);
+        }
+        else if(data.status==false){
+            alert(data.message)
         }
        
 
