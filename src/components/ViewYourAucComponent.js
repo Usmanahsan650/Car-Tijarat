@@ -16,7 +16,7 @@ function Fetchdata(setList,options,id){
 }
 
 function CreateCards({List,gridView}){
-    if(List.length==0){
+    if(List.length===0){
         return(<div></div>)
     }
     //console.log(List)
@@ -104,10 +104,15 @@ export function  ViewAuctionsList(props){
     }
 
     const history = useHistory();
-     
-    useEffect(() => {
-      Fetchdata(setList,false,props.sellerID);
-    }, []);
+   
+    useEffect(()=>{
+      if(!props.sellerID){
+        history.replace('/login/seller')
+      }
+      else{
+        Fetchdata(setList,false,props.sellerID);
+      }
+  },[props.sellerID])
     
     return(
         <Container>

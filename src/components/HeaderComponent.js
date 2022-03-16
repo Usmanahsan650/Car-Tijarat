@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Navbar, NavItem, NavbarToggler, NavbarBrand, ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu, Nav, Button, Collapse } from 'reactstrap'
 import { apiServer } from "./HomeComponet";
+import { useState } from "react";
 
 
 function Logout(setlogin){
@@ -16,17 +15,15 @@ function Logout(setlogin){
     
 }
 export function Header(props) {
-    const history=useHistory();
     const user=JSON.parse(window.localStorage.getItem("user"));
     const [isOpen, setIsOpen] = useState(false);
     const [LoginOpen, setLoginOpen] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);
     }
-    
     return (<div id="Header">
         <Navbar id='navbar' dark expand="lg" >
-            <NavbarBrand id="Logo" href="/" ><img src="/LogoAlpha1.png" height={"25px"} width={"40px"} /></NavbarBrand>
+            <NavbarBrand id="Logo" href="/" ><img alt="Car Tijarat" src="/LogoAlpha1.png" height={"25px"} width={"40px"} /></NavbarBrand>
             { props.loggedin===false?
             <Nav id="Login">
                 <NavItem >
@@ -60,7 +57,7 @@ export function Header(props) {
                         </DropdownToggle>
                         <DropdownMenu style={{"backgroundColor":"#f15f5f" ,"zIndex":"1"}}>
                             <DropdownItem header>{user.name}</DropdownItem>
-                           <DropdownItem ><button className="transButton" onClick={()=>{Logout(props.setlogin);history.replace("/home");}}>Logout</button></DropdownItem>
+                           <DropdownItem ><button className="transButton" onClick={()=>{Logout(props.setlogin);}}>Logout</button></DropdownItem>
                         </DropdownMenu>
                     </ButtonDropdown></NavItem>
                 </Nav>

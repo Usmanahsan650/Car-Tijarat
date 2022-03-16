@@ -30,9 +30,12 @@ export function Main(props){
    if(user) 
     {setlogin(true);
         if(user.sellerID){
-            setSeller(true)
-        }}
-    else
+            setSeller(true);
+        }else{
+            setBuyer(true);
+        }
+    }
+    else 
     setlogin(false);
     
     },[]);
@@ -50,12 +53,12 @@ export function Main(props){
 
 <TransitionGroup>
                 <CSSTransition key={location.key} classNames="page" timeout={1000}>
-        <Switch location={location}>
+        <Switch location={location} >
 
-        <Route path={"/yourAuctions"} component={()=><ViewAuctionsList sellerID={JSON.parse(window.localStorage.getItem("user")).sellerID}/>} />
+        <Route path={"/yourAuctions"} component={()=><ViewAuctionsList sellerID={JSON.parse(window.localStorage.getItem("user"))?JSON.parse(window.localStorage.getItem("user")).sellerID:null}/>} />
         
         <Route path="/auction-room/:AuctionID">
-            <AuctionRoom />
+            <AuctionRoom isSeller={isSeller} isBuyer={isBuyer} loggedin={loggedin} />
         </Route>
         <Route path={"/register"} component={Register} />
         <Route path={"/registeredCars"} component={RegisteredCars} />

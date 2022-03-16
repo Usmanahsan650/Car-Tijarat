@@ -1,18 +1,15 @@
-import { keyboard } from "@testing-library/user-event/dist/keyboard";
 import React from "react";
 import { apiServer } from "./HomeComponet";
 import { Container,Row,Col, Form, Input, Label, FormGroup, Button } from "reactstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-
+import { useEffect } from "react";
 export function SellCar(props){
     const history=useHistory();
     const user=JSON.parse(window.localStorage.getItem("user"));
-    console.log(user)
     const handleSubmit=(e)=>{
         e.preventDefault();
         
         const f=new FormData(e.target)
-       const data=Object.fromEntries(f.entries());
         fetch(`${apiServer}/api/vehicle/vehicle/register`,{
             mode:'cors',
             method:'POST',
@@ -28,6 +25,11 @@ export function SellCar(props){
     
         })
     }
+    useEffect(()=>{
+        if(!user){
+          history.replace('/login/seller')
+        }
+    },[user])
     return(
         <Container className="SellCarContainer">
             <Row>
@@ -105,7 +107,7 @@ export function SellCar(props){
                             <Input type="textarea" maxLength={200} name="description" id="description"/>
                         </FormGroup>
                         
-                        <Input type="hidden" name="ownerCNIC" value={user.cnic}/>
+                        <Input type="hidden" name="ownerCNIC" value={user?user.cnic:null}/>
                         </Col>
                         </Row>
                         <Col sm="12" md="6" className="offset-md-3">

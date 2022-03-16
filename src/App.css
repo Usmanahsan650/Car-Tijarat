@@ -244,3 +244,22 @@ margin-left: auto;
 body{
   background-color: whitesmoke;
 }
+#registerAuctionButton{
+  float: right;
+  background: url("http://localhost:3000/buttonBg.png") no-repeat scroll 0 0 transparent;
+  background-position: center;
+  height: 63px;
+  background-size: 159px;
+  color: white;
+  border: 0px;
+  padding: 20px;
+}
+#registerAuctionButton:hover{
+  opacity: 0.5;
+}
+
+
+
+
+
+

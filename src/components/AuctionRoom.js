@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, ButtonGroup, Button, Form, Card, ListGroup } from "react-bootstrap";
 import { useLocation, useParams } from "react-router-dom";
-
+import { Modal,ModalHeader,ModalBody,ModalFooter } from "reactstrap";
+import { apiServer } from "./HomeComponet";
 const getSellerInfo = (AuctionID, setSellerInfo) => {
     // fetching seller information with respect to the AuctionID
     fetch('http://localhost:5000/api/seller/seller_info/' + AuctionID)
@@ -15,27 +17,62 @@ const getSellerInfo = (AuctionID, setSellerInfo) => {
     .catch(err => console.log(err));
 };
 
-const AuctionRoom = () => {
+const AuctionRoom = (props) => {
+    const [ModalOpen,setModal]=useState(false);
     const location = useLocation();
     const { data } = location.state;
-
+    const[MemberPackage,setPackage]=useState(null);
+    const [BiddingID,setBiddingID]=useState(null);
     const { AuctionID } = useParams();
     const [sellerInfo, setSellerInfo] = useState(null);
-
+    const [registered,setReg]=useState(false);
     useEffect(() => {
+        const user=JSON.parse(window.localStorage.getItem("user"));
         getSellerInfo(AuctionID, setSellerInfo);
-    }, []);
+        if(props.loggedin&&props.isBuyer&&user){
+            fetch(`${apiServer}/api/auction/registered_for_bidding`,{
+                method:"POST",
+                credentials:"include",
+                headers:{
+                    "Content-Type":"application/json"
+                }
+                ,body:JSON.stringify({AuctionId:AuctionID,UserCNIC:user.cnic})
+            }).then(res=>res.json()).then(data=>{
+                if(data)
+                setBiddingID(data.ID);
+                
+            })
+        }
+    }, [AuctionID, props.isBuyer, props.loggedin, registered]);
 
+    function registerClick(){
+        if(props.loggedin&&props.isBuyer)
+        {
+            setModal(true);
+            fetchPackages(setPackage);
+        }
+    }
     return ( 
+        <div>
         <Container>
 
             <Row>
-                <p>Auction ID: <span className="badge bg-dark">{ data.id }</span></p>
+                <Col sm="12">
+                {
+                props.loggedin&&props.isBuyer&&BiddingID===null?
+                <button id="registerAuctionButton" onClick={registerClick}>Register In Auction</button>
+                :<div>
+                    <p>Your Bidding ID: <span className="badge bg-dark">{ BiddingID }</span></p>
+                </div>
+                }<p>Auction ID: <span className="badge bg-dark">{ data.id }</span></p>
                 <p>Vehicle: <span className="fw-bold">{ data.RegNo + " " + data.name}</span></p>
                 <p>Vehicle Owner: <span className="fw-bold">{ (sellerInfo && sellerInfo[0].full_name) || <span>Loading...</span> }</span></p>
+                
+                </Col>
             </Row>
 
             <Row>
+                
                 <Col>
                     <ListGroup>
                         <ListGroup.Item>Manufacturer: <span className="fw-bold">{ data.manufacturer }</span></ListGroup.Item>
@@ -88,7 +125,71 @@ const AuctionRoom = () => {
             </Row>
 
         </Container>
+        <Modal className="popups" isOpen={ModalOpen} toggle={()=>{setModal(!ModalOpen)}}>
+        <ModalHeader>
+           <h3>Register into Auction</h3> 
+        </ModalHeader>
+        <ModalBody>
+            <div><h5 style={{"textDecoration":"underline"}}>Your Subscription</h5></div> 
+            { MemberPackage?
+            <div>
+            <div><span>Package: &nbsp;</span><span style={{"fontStyle":"italic","fontWeight":"bold"}}>{MemberPackage.type || "loading"}</span></div>           
+            <div><span>Remaining Auctoins: &nbsp;</span><span style={{"fontStyle":"italic","fontWeight":"bold"}}>{MemberPackage.RemainingAuction || "loading..."}</span></div>           
+            </div>
+            :
+            <diV></diV>
+            }
+            </ModalBody>
+        <ModalFooter>
+            { MemberPackage?
+                <Button onClick={()=>{confirmation(AuctionID,MemberPackage.RegID,setReg,setModal)}}>Register For Bidding</Button>
+                :
+                <Button onClick={()=>{setModal(false)}}>Close</Button>
+            }
+            
+        </ModalFooter>
+        </Modal>
+        </div>
+        
      );
 }
- 
+function fetchPackages(setPackage){
+    const user=JSON.parse(window.localStorage.getItem("user"));
+    if(user){
+        
+    fetch(`${apiServer}/api/subscription/getRegisteredPackages`,{
+        method:"POST",
+        credentials:"include",
+        headers:{"Content-Type": "application/json"},
+        body:JSON.stringify({UserCNIC:user.cnic}) 
+    }).then(result=>result.json()).then(data=>{
+        setPackage(data[0]);
+    }).catch(err=>{
+        console.log(err);
+    })
+    }
+}
+function confirmation(AuctionID,RegID,setReg,setModal){
+    if(window.confirm("Are You Sure?\nPress \"OK\" to register for this auction\nPress \"Cancel\" to abort")){
+        fetch(`${apiServer}/api/subscription/subscribe`,{
+            method:"POST",
+            credentials:"include",
+            mode:"cors",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+               AuctionID:AuctionID,
+               RegID:RegID 
+            })
+
+        }).then(res=>res.json()).then(data=>{console.log(data) 
+            setReg(true)
+        setModal(false)
+        }).catch(e=>{
+            console.log(e)
+        })
+    }
+    
+}
 export default AuctionRoom;
