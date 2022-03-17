@@ -126,6 +126,7 @@ margin-left: auto;
   display: block;
 }
 .NavOptions{
+  margin-left: 2px;
   width: -webkit-fill-available;
   width: -moz-available;
 }
@@ -258,8 +259,8 @@ body{
   opacity: 0.5;
 }
 
-
-
-
-
-
+.ddButton{
+  background-color: white;
+  z-index: 1;
+  box-shadow: 3px 3px blue;
+}

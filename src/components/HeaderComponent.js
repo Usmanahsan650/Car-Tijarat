@@ -37,7 +37,7 @@ export function Header(props) {
                         <DropdownToggle color="primary" caret >
                             Login
                         </DropdownToggle>
-                        <DropdownMenu>
+                        <DropdownMenu className="ddButton">
                             <DropdownItem header>Login</DropdownItem>
                             <Link to="/login/seller"> <DropdownItem>As Seller</DropdownItem></Link>
                             <Link to="/login/buyer"><DropdownItem>As Buyer</DropdownItem></Link>
@@ -55,7 +55,7 @@ export function Header(props) {
                         <DropdownToggle color="primary" caret >
                             Logged in 
                         </DropdownToggle>
-                        <DropdownMenu style={{"backgroundColor":"#f15f5f" ,"zIndex":"1"}}>
+                        <DropdownMenu style={{"backgroundColor":"#ffffff" ,"zIndex":"1"} } className="ddButton">
                             <DropdownItem header>{user.name}</DropdownItem>
                            <DropdownItem ><button className="transButton" onClick={()=>{Logout(props.setlogin);}}>Logout</button></DropdownItem>
                         </DropdownMenu>
