@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Header } from "./HeaderComponent";
-import { Home } from "./HomeComponet";
-import { About } from "./AboutUaComponent";
+import { Home } from "./HomeComponent";
+import { About } from "./AboutUsComponent";
 import { useLocation } from "react-router-dom";
 import { Login } from "./LoginComponent";
 import { AuctionsList } from "./AuctionListingComponent";
@@ -51,8 +51,8 @@ export function Main(props){
             <div></div>
         }
 
-<TransitionGroup>
-                <CSSTransition key={location.key} classNames="page" timeout={1000}>
+{/* <TransitionGroup>
+                <CSSTransition key={location.key} classNames="page" timeout={1000}> */}
         <Switch location={location} >
 
         <Route path={"/yourAuctions"} component={()=><ViewAuctionsList sellerID={JSON.parse(window.localStorage.getItem("user"))?JSON.parse(window.localStorage.getItem("user")).sellerID:null}/>} />
@@ -70,8 +70,8 @@ export function Main(props){
         <Route path={"/"} component={Home} /> 
          
         </Switch>
-        </CSSTransition>
-        </TransitionGroup>
+        {/* </CSSTransition>
+        </TransitionGroup> */}
 
         </React.Fragment>
     )

@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { Pagination, PaginationItem, Container, Row, Col, Card, CardHeader, CardImg, CardBody, CardFooter, CardSubtitle, Badge, CardTitle, List, Breadcrumb, BreadcrumbItem, Input, Label, Button, PaginationLink } from "reactstrap";
-import { apiServer } from './HomeComponet';
+import { apiServer } from './HomeComponent';
 function Fetchdata(setList, options) {
 
   if (!options) {
     fetch(`${apiServer}/api/auction/auctions_list`, {
       method: "GET",
       credentials: "include",
-    }).then((resonse) => resonse.json()).then((data) => {
+    }).then((response) => response.json()).then((data) => {
       setList(data);
     }).catch(err => console.error(err));
 
@@ -78,7 +78,7 @@ function CreateCards(List, gridView, indexes) {
       )
     else {
       return (
-        <Col sm="12" md="6" lg="3" style={{ "box-shadow": "5px 10px 5px grey" }} key={auction.regNO}>
+        <Col sm="12" md="6" lg="3" style={{ "boxShadow": "5px 10px 5px grey" }} key={auction.regNO}>
           <Card>
             <CardImg src={apiServer + auction.Image} height={"200px"} />
             <CardBody>
@@ -147,7 +147,7 @@ export function AuctionsList(options) {
     <Container>
       <Row>
         <Col sm="12">
-          <h3 className="Headings" >Used Cars For Auction</h3>
+          <h3 className="Headings">Cars For Auction</h3>
         </Col>
       </Row>
       <Row >

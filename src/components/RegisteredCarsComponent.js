@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import { useEffect } from "react/cjs/react.development";
 import { Button, Container,Col,Row ,Card,CardImg,CardBody,CardTitle,CardFooter,CardSubtitle, Modal, ModalHeader, ModalBody, Form, Input, FormGroup, Label} from "reactstrap";
-import { apiServer } from "./HomeComponet";
+import { apiServer } from "./HomeComponent";
+
 function validateDate(start,end){
   const d1=new Date(start);
   const d2=new Date(end);
@@ -13,14 +14,15 @@ function validateDate(start,end){
   }
   return false 
 }
+
 export function RegisteredCars(props){
     const user=JSON.parse( localStorage.getItem("user"));
     const [Registeredcars,setRegisteredCars]=useState([]);
     const [Auction,setAuction]=useState("");
     const [isOpen,SetIsOpen]=useState(false);
     const history=useHistory();
+
     useEffect(()=>{
-      
         if(!user){
           history.replace('/login/seller')
         }
@@ -36,11 +38,13 @@ export function RegisteredCars(props){
         }).then(res=>res.json()).then(data=>{
             setRegisteredCars(data);
         })
-    },[user])
+    },[])
+
     let showForm=(regNo)=>{ 
       SetIsOpen(true);
       setAuction(regNo);
     }
+
     let handleSubmit=(e)=>{
       e.preventDefault();
       const target=e.target;
@@ -59,6 +63,7 @@ export function RegisteredCars(props){
       }).then(res=>res.json()).then(res=>{alert(res)}).catch((err)=>{console.log(err)});
 
     }
+
     let items = Registeredcars.map((car) => {
         return (
           <Col sm="12" md="4" lg="3" style={{ "box-shadow": "5px 10px 5px grey"}} key={car.RegNo}>
@@ -69,7 +74,7 @@ export function RegisteredCars(props){
                   <h4 className="Headings">{car.name}</h4>
                 </CardTitle>
                 <CardSubtitle>
-                  <b><h6>Model:{car.model}, Seats:{car.no_of_seats},Make:{car.manufacturer}</h6></b>
+                  <b><h6>Model:{car.modelNo}, Seats:{car.no_of_seats}, Make:{car.manufacturer}</h6></b>
                 </CardSubtitle>
               </CardBody>
               <CardFooter>
@@ -79,18 +84,17 @@ export function RegisteredCars(props){
           </Col>
         )
       })
-      if(RegisteredCars.length===0)
-      items=(
-          <h3>You dont have any registered cars on Car Tijarat</h3>
-      )
+
     return(
         <div>
           
         <Container>
             <Row>
-           {items}
+              <h3 className="Headings">Your cars</h3>
+              { items.length > 0 ? items : <div>Currently you don't have any registered cars on Car Tijarat</div>}
             </Row>
         </Container>
+
         <Modal class="popup" isOpen={isOpen}toggle={()=>SetIsOpen(!isOpen)}>
           <ModalHeader> Register Auction for {Auction}</ModalHeader>
           <ModalBody>

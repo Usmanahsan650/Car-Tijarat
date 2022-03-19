@@ -1,5 +1,5 @@
 import React from "react";
-import { apiServer } from "./HomeComponet";
+import { apiServer } from "./HomeComponent";
 import { Container,Row,Col, Form, Input, Label, FormGroup, Button } from "reactstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
@@ -16,11 +16,11 @@ export function SellCar(props){
            
             credentials:'include',
             body:f
-        }).then((res)=>res.josn()).then(saved=> {
+        }).then((res)=>res.json()).then(saved=> {
             if(saved)
             {
                 alert("Your Car is registered successfully!");
-                history.replace("/home")
+                history.replace("/registeredCars");
             }
     
         })
@@ -29,7 +29,8 @@ export function SellCar(props){
         if(!user){
           history.replace('/login/seller')
         }
-    },[user])
+    },[user]);
+
     return(
         <Container className="SellCarContainer">
             <Row>
@@ -55,7 +56,7 @@ export function SellCar(props){
                         <Input type="number" min={1980} max={2022} name="modelNo" id="modelNo" placeholder="Model"/>
                         </FormGroup>
                         <FormGroup>
-                        <Label for="no_of_seats">Seats</Label>
+                        <Label for="no_of_seats">Seats Capacity</Label>
                         <Input type="number" min={2} max={15} name="no_of_seats" id="no_of_seats" placeholder="seats"/>
                         </FormGroup>
                         <FormGroup>
@@ -115,7 +116,7 @@ export function SellCar(props){
                             <Label for="Image">
                                 Image
                             </Label>
-                            <Input type="file"  name="Image" id="Image"/>
+                            <Input type="file" name="Image" id="Image"/>
                         </FormGroup>
                         </Col>
                         <Col sm="12" md="4" className="offset-md-4">

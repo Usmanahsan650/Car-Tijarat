@@ -2,11 +2,13 @@
 import { Container, Col, Row, Form, Input, Button, Label, FormFeedback, FormGroup } from "reactstrap";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 export function Register(props) {
     const history = useHistory();
     
     const [validateEmail, setEmailValidate] = useState(true);
     const [validatePw, setPwVaildate] = useState(true);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setPwVaildate(true);
@@ -23,8 +25,8 @@ export function Register(props) {
             password:target.password.value, 
             contact_no:target.contact_no.value,
             location:target.location.value, 
-            isSeller:target.isSeller?1:0,
-            isBuyer:target.isBuyer?1:0
+            isSeller:target.isSeller.checked?1:0,
+            isBuyer:target.isBuyer.checked?1:0
         }
         console.log(f)
         fetch(`http://localhost:5000/api/user/signup`, {
@@ -43,7 +45,7 @@ export function Register(props) {
                 if(f.isSeller.checked)
                 history.replace("/login/seller");
                 else
-                history.replace("/login/seller");
+                history.replace("/login/buyer");
 
 
             } else if (data.err === "email") {

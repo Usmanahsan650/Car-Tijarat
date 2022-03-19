@@ -1,9 +1,9 @@
-
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, ButtonGroup, Button, Form, Card, ListGroup } from "react-bootstrap";
 import { useLocation, useParams } from "react-router-dom";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { apiServer } from "./HomeComponet";
+import { apiServer } from "./HomeComponent";
+
 const getSellerInfo = (AuctionID, setSellerInfo) => {
     // fetching seller information with respect to the AuctionID
     fetch('http://localhost:5000/api/seller/seller_info/' + AuctionID)
@@ -18,6 +18,7 @@ const getSellerInfo = (AuctionID, setSellerInfo) => {
 };
 
 const AuctionRoom = (props) => {
+
     const [ModalOpen, setModal] = useState(false);
     const location = useLocation();
     const { data } = location.state;
@@ -26,9 +27,11 @@ const AuctionRoom = (props) => {
     const { AuctionID } = useParams();
     const [sellerInfo, setSellerInfo] = useState(null);
     const [registered, setReg] = useState(false);
+
     useEffect(() => {
         const user = JSON.parse(window.localStorage.getItem("user"));
         getSellerInfo(AuctionID, setSellerInfo);
+
         if (props.loggedin && props.isBuyer && user) {
             fetch(`${apiServer}/api/auction/registered_for_bidding`, {
                 method: "POST",
@@ -40,7 +43,6 @@ const AuctionRoom = (props) => {
             }).then(res => res.json()).then(data => {
                 if (data)
                     setBiddingID(data.ID);
-
             })
         }
     }, [AuctionID, props.isBuyer, props.loggedin, registered]);
@@ -51,6 +53,7 @@ const AuctionRoom = (props) => {
             fetchPackages(setPackage);
         }
     }
+
     return (
         <div>
             <Container>
@@ -156,6 +159,7 @@ const AuctionRoom = (props) => {
 
     );
 }
+
 function fetchPackages(setPackage) {
     const user = JSON.parse(window.localStorage.getItem("user"));
     if (user) {
@@ -172,6 +176,7 @@ function fetchPackages(setPackage) {
         })
     }
 }
+
 function confirmation(AuctionID, RegID, setReg, setModal) {
     if (window.confirm("Are You Sure?\nPress \"OK\" to register for this auction\nPress \"Cancel\" to abort")) {
         fetch(`${apiServer}/api/subscription/subscribe`, {
@@ -185,7 +190,6 @@ function confirmation(AuctionID, RegID, setReg, setModal) {
                 AuctionID: AuctionID,
                 RegID: RegID
             })
-
         }).then(res => res.json()).then(data => {
             console.log(data)
             setReg(true)
@@ -194,6 +198,6 @@ function confirmation(AuctionID, RegID, setReg, setModal) {
             console.log(e)
         })
     }
-
 }
+
 export default AuctionRoom;

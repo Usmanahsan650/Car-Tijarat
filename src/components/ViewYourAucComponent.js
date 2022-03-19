@@ -2,22 +2,22 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { Container,Row,Col, Card, CardImg,CardBody,CardFooter,CardSubtitle,Badge, CardTitle, Button} from "reactstrap";
-import {apiServer} from './HomeComponet';
+import {apiServer} from './HomeComponent';
 function Fetchdata(setList,options,id){
     //console.log(apiServer)
     if(!options){
         fetch(`${apiServer}/api/auction/sellerslisting?sellerID=${id}`,{
             method:"GET",
             credentials:"include",
-          }).then((resonse)=>resonse.json()).then((data)=>{
-          setList(data);
+          }).then((response)=>response.json()).then((data)=>{
+          setList(data); //console.log(data);
           }).catch(err=>console.error(err));
     }
 }
 
 function CreateCards({List,gridView}){
-    if(List.length===0){
-        return(<div></div>)
+    if(List === "No auctions found"){
+        return(<div>Currently you don't have any registered cars on Car Tijarat</div>);
     }
     //console.log(List)
     const ret= List.map((auction)=>{
@@ -67,7 +67,7 @@ function CreateCards({List,gridView}){
                       <h4 className="Headings">{auction.name}</h4>
                     </CardTitle>
                     <CardSubtitle>
-                      <b><h6>Model:{auction.modelNo}, Seats:{auction.no_of_seats},Brand:{auction.manufacturer}</h6></b>
+                      <b><h6>Model:{auction.modelNo}, Seats:{auction.no_of_seats}, Brand:{auction.manufacturer}</h6></b>
                     </CardSubtitle>
                   </CardBody>
                   <CardFooter>
@@ -118,7 +118,7 @@ export function  ViewAuctionsList(props){
         <Container>
             <Row>
                 <Col sm="12">
-                    <h3 className="Headings" >Your auctions</h3>
+                    <h3 className="Headings">Your auctions</h3>
                 </Col>
             </Row>
             <Row id="paddedBox">

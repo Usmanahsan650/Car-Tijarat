@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Navbar, NavItem, NavbarToggler, NavbarBrand, ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu, Nav, Button, Collapse } from 'reactstrap'
-import { apiServer } from "./HomeComponet";
+import { apiServer } from "./HomeComponent";
 import { useState } from "react";
 
 
