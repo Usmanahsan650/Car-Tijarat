@@ -4,6 +4,8 @@ import { Slider } from "./slider";
 import Carousel from "react-multi-carousel";
 import { FcApproval } from "react-icons/fc";
 import "react-multi-carousel/lib/styles.css";
+import { compareDates, timeConvert } from "../utils";
+import { Link } from "react-router-dom";
 export const apiServer='http://localhost:5000';
 
 export function Home(props) {
@@ -37,6 +39,8 @@ function FeaturedCars() {
 
   }
   const items = carsList.map((auction) => {
+    const result = compareDates(auction.start_date_time, auction.end_date_time);
+
     return (
       <Col sm="9" style={{ "boxShadow": "5px 10px 5px grey" }} key={auction.regNO}>
         <Card>
@@ -46,11 +50,25 @@ function FeaturedCars() {
               <h4 className="Headings">{auction.name}</h4>
             </CardTitle>
             <CardSubtitle>
-              <b><h6>Model:{auction.modelNo}, Seats:{auction.no_of_seats}</h6></b>
+              <b><h6>Model:{auction.modelNo}, Seats:{auction.no_of_seats}, RegNo:{auction.RegNo}</h6></b>
             </CardSubtitle>
           </CardBody>
           <CardFooter>
-            <Badge color="success">{auction.status}</Badge>
+            {/* <Badge color="success">{auction.status}</Badge> */}
+            { 
+              result === -1 ? <Button className="gridButton" color="primary">On: {timeConvert(auction.start_date_time)}</Button> :
+                result === 1 ? <Button className="gridButton" color="danger" disabled>Auction Ended</Button> : 
+                <Link
+                  to={{
+                    pathname: `/auction-room/${auction.id}`,
+                    state: {
+                      data: auction
+                    },
+                  }}
+                >
+                <Button className="gridButton" color="success">In Progress</Button>
+                </Link>
+            }
           </CardFooter>
         </Card>
       </Col>

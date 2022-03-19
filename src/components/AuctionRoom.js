@@ -131,6 +131,7 @@ const AuctionRoom = (props) => {
                 </Row>
 
             </Container>
+
             <Modal className="popups" isOpen={ModalOpen} toggle={() => { setModal(!ModalOpen) }}>
                 <ModalHeader>
                     <h3>Register into Auction</h3>
@@ -140,7 +141,7 @@ const AuctionRoom = (props) => {
                     {MemberPackage ?
                         <div>
                             <div><span>Package: &nbsp;</span><span style={{ "fontStyle": "italic", "fontWeight": "bold" }}>{MemberPackage.type || "loading"}</span></div>
-                            <div><span>Remaining Auctoins: &nbsp;</span><span style={{ "fontStyle": "italic", "fontWeight": "bold" }}>{MemberPackage.RemainingAuction || "loading..."}</span></div>
+                            <div><span>Remaining Auctions: &nbsp;</span><span style={{ "fontStyle": "italic", "fontWeight": "bold" }}>{MemberPackage.RemainingAuction || "loading..."}</span></div>
                         </div>
                         :
                         <diV style={{"color":"red"}} >You are not subscribed to our membership!</diV>
@@ -162,8 +163,8 @@ const AuctionRoom = (props) => {
 
 function fetchPackages(setPackage) {
     const user = JSON.parse(window.localStorage.getItem("user"));
-    if (user) {
 
+    if (user) {
         fetch(`${apiServer}/api/subscription/getRegisteredPackages`, {
             method: "POST",
             credentials: "include",
@@ -179,7 +180,7 @@ function fetchPackages(setPackage) {
 
 function confirmation(AuctionID, RegID, setReg, setModal) {
     if (window.confirm("Are You Sure?\nPress \"OK\" to register for this auction\nPress \"Cancel\" to abort")) {
-        fetch(`${apiServer}/api/subscription/subscribe`, {
+        fetch(`${apiServer}/api/auction/register_for_bidding`, {
             method: "POST",
             credentials: "include",
             mode: "cors",

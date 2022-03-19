@@ -60,7 +60,7 @@ export function RegisteredCars(props){
         },
         credentials:"include",
         body:JSON.stringify(data)
-      }).then(res=>res.json()).then(res=>{alert(res)}).catch((err)=>{console.log(err)});
+      }).then(res=>res.json()).then(res=>{alert(res);}).catch((err)=>{console.log(err)});
 
     }
 

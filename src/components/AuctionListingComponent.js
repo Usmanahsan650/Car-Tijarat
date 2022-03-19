@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import { Pagination, PaginationItem, Container, Row, Col, Card, CardHeader, CardImg, CardBody, CardFooter, CardSubtitle, Badge, CardTitle, List, Breadcrumb, BreadcrumbItem, Input, Label, Button, PaginationLink } from "reactstrap";
+import { Pagination, PaginationItem, Container, Row, Col, Card, CardHeader, CardImg, CardBody, CardFooter, CardSubtitle, Badge, CardTitle, List, Breadcrumb, BreadcrumbItem, Input, Label, Button, PaginationLink, Util } from "reactstrap";
 import { apiServer } from './HomeComponent';
+import { compareDates, timeConvert } from '../utils';
+
 function Fetchdata(setList, options) {
 
   if (!options) {
@@ -30,6 +32,7 @@ function Fetchdata(setList, options) {
   }
 
 }
+
 function CreateCards(List, gridView, indexes) {
 
   if (!List) {
@@ -40,6 +43,8 @@ function CreateCards(List, gridView, indexes) {
     return indexes.indexOf(i) != -1;
   })
   const ret = List.map((auction) => {
+    const result = compareDates(auction.start_date_time, auction.end_date_time);
+
     if (!gridView)
       return (
         <Col sm="12" md="12" lg="12" className="Listing ">
@@ -55,22 +60,26 @@ function CreateCards(List, gridView, indexes) {
                     <h4 className="Headings">{auction.name}</h4>
                   </CardTitle>
                   <CardSubtitle >
-                    <b><h6>Model:{auction.modelNo}|Seats:{auction.no_of_seats}|RegNO:{auction.RegNo}</h6></b>
+                    <b><h6>Model:{auction.modelNo}, Seato:{auction.no_of_seats}, RegNo:{auction.RegNo}</h6></b>
                   </CardSubtitle>
                 </CardBody>
               </Col>
               <Col sm="3">
-                <Badge className="statusBadge" color="success">{auction.status}</Badge>
-                <Link
-                  to={{
-                    pathname: `/auction-room/${auction.id}`,
-                    state: {
-                      data: auction
-                    },
-                  }}
-                >
-                  <Button className="bottomRight" outline color="primary">Go to Auction Room</Button>
-                </Link>
+                {/* <Badge className="statusBadge" color="success">{auction.status}</Badge> */}
+                { 
+                  result === -1 ? <Button className="gridButton" color="primary">On: {timeConvert(auction.start_date_time)}</Button> :
+                    result === 1 ? <Button className="gridButton" color="danger" disabled>Auction Ended</Button> : 
+                    <Link
+                      to={{
+                        pathname: `/auction-room/${auction.id}`,
+                        state: {
+                          data: auction
+                        },
+                      }}
+                    >
+                    <Button className="gridButton" color="success">In Progress</Button>
+                    </Link>
+                }
               </Col>
             </Row>
           </Card>
@@ -86,21 +95,25 @@ function CreateCards(List, gridView, indexes) {
                 <h4 className="Headings">{auction.name}</h4>
               </CardTitle>
               <CardSubtitle>
-                <b><h6>Model:{auction.modelNo}, Seats:{auction.no_of_seats},Brand:{auction.manufacturer}</h6></b>
+              <b><h6>Model:{auction.modelNo}, Seato:{auction.no_of_seats}, RegNo:{auction.RegNo}</h6></b>
               </CardSubtitle>
             </CardBody>
             <CardFooter>
-              <Badge color="success">{auction.status}</Badge>
-              <Link
-                to={{
-                  pathname: `/auction-room/${auction.id}`,
-                  state: {
-                    data: auction
-                  },
-                }}
-              >
-                <Button className="gridButton" outline color="primary">Go to Auction Room</Button>
-              </Link>
+              {/* <Badge color="secondary">{auction.status}</Badge> */}
+              { 
+              result === -1 ? <Button className="gridButton" color="primary">On: {timeConvert(auction.start_date_time)}</Button> :
+                result === 1 ? <Button className="gridButton" color="danger" disabled>Auction Ended</Button> : 
+                <Link
+                  to={{
+                    pathname: `/auction-room/${auction.id}`,
+                    state: {
+                      data: auction
+                    },
+                  }}
+                >
+                <Button className="gridButton" color="success">In Progress</Button>
+                </Link>
+              }
             </CardFooter>
           </Card>
         </Col>
