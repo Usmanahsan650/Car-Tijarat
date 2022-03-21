@@ -18,11 +18,10 @@ export function Home(props) {
           <Col sm="12" style={{ "padding": "10px", "borderRadius": "10px", "backgroundColor": "beige" }}>
             <FeaturedCars />
           </Col>
-
         </Row>
-
       </Container>
-      <Footer />
+
+      { !props.isSeller ? <Footer /> : null }
     </React.Fragment>
   )
 }
@@ -105,7 +104,7 @@ function Footer(props) {
 
     <Container className="Footer" style={{ "marginBottom": "10px", "borderRadius": "10px", "marginTop": "5px" }}>
       <Row>
-        <h2 className="Headings" style={{ "textAlign": "center", "color": "white" }}>Membersip Options</h2>
+        <h2 className="Headings" style={{ "textAlign": "center", "color": "white" }}>Bidder's Membership Choices</h2>
         <Col md="4">
           <Card color="" id="Membership">
             <CardTitle ><h3>Guest</h3></CardTitle>

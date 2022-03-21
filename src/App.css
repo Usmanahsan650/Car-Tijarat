@@ -254,7 +254,9 @@ body{
   color: white;
   border: 0px;
   padding: 20px;
+  margin: 5px;
 }
+
 #registerAuctionButton:hover{
   opacity: 0.5;
 }
@@ -263,4 +265,9 @@ body{
   background-color: white;
   z-index: 1;
   box-shadow: 3px 3px blue;
+}
+
+#bidID{
+  text-align: center;
+  margin: 5px;
 }

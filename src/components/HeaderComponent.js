@@ -28,7 +28,7 @@ export function Header(props) {
             <Nav id="Login">
                 <NavItem >
                     <Link to="/register"> 
-                    <Button style={{"marginRight":"5px"}} outline color="warning">Register</Button>
+                    <Button outline color="warning" className="mx-2">Register</Button>
                     </Link></NavItem>
                     
                 <NavItem><div className="dropdown" style={{"marginRight":"10px"}}>
@@ -66,18 +66,18 @@ export function Header(props) {
                 <Collapse id='collapseableMenu' isOpen={isOpen} navbar>
                 <Nav className="toggleOptions"> 
                         <NavItem >
-                            <Link  to={"/"}><Button className="NavOptions"  color="light" outline>Home</Button></Link></NavItem>
+                            <Link  to={"/"}><Button className="NavOptions mx-2"  color="light" outline>Home</Button></Link></NavItem>
                     </Nav>
                     <Nav className="toggleOptions">
-                        <NavItem><Button className="NavOptions" color="light" outline>How It Works</Button></NavItem>
-                    </Nav>
-                    <Nav className="toggleOptions">
-                        <NavItem>
-                            <Link to={"/about"}><Button className="NavOptions"  color="light" outline>About Us</Button></Link></NavItem>
+                        <NavItem><Button className="NavOptions mx-2" color="light" outline>How It Works</Button></NavItem>
                     </Nav>
                     <Nav className="toggleOptions">
                         <NavItem>
-                            <Link to="/auctions"><Button className="NavOptions"  color="light" outline>Auctions</Button>
+                            <Link to={"/about"}><Button className="NavOptions mx-2"  color="light" outline>About Us</Button></Link></NavItem>
+                    </Nav>
+                    <Nav className="toggleOptions">
+                        <NavItem>
+                            <Link to="/auctions"><Button className="NavOptions mx-2"  color="light" outline>Auctions</Button>
                             </Link>
                             </NavItem>
                             

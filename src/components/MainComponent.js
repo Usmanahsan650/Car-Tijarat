@@ -13,8 +13,8 @@ import { SellCar } from "./SellCarComponent";
 import { useEffect } from "react";
 import { RegisteredCars } from "./RegisteredCarsComponent";
 import { ViewAuctionsList } from "./ViewYourAucComponent";
-import AuctionRoom from "./AuctionRoom";
 import { Register } from "./RegisterUserComponent";
+import ConnectToRoom from "./ConnectToRoom";
  
 export function Main(props){
     const [loggedin,setlogin]=useState(false);
@@ -58,8 +58,9 @@ export function Main(props){
         <Route path={"/yourAuctions"} component={()=><ViewAuctionsList sellerID={JSON.parse(window.localStorage.getItem("user"))?JSON.parse(window.localStorage.getItem("user")).sellerID:null}/>} />
         
         <Route path="/auction-room/:AuctionID">
-            <AuctionRoom isSeller={isSeller} isBuyer={isBuyer} loggedin={loggedin} />
+            <ConnectToRoom isSeller={isSeller} isBuyer={isBuyer} loggedin={loggedin} />
         </Route>
+
         <Route path={"/register"} component={Register} />
         <Route path={"/registeredCars"} component={RegisteredCars} />
         <Route path={"/SellYourCar"} component={SellCar} />
@@ -67,7 +68,7 @@ export function Main(props){
         <Route path={"/login/buyer"} component={()=><Login setlogin={setlogin} setSeller={setSeller} setBuyer={setBuyer} as={location.pathname.split("/").pop()}/>} /> 
         <Route exact path={'/about'} component={About}/>
         <Route exact path="/auctions" component={AuctionsList}/>
-        <Route path={"/"} component={Home} /> 
+        <Route path={"/"} component={()=><Home isSeller={isSeller} isBuyer={isBuyer} loggedin={loggedin} />} /> 
          
         </Switch>
         {/* </CSSTransition>
