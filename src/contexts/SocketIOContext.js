@@ -1,11 +1,12 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useReducer } from 'react';
 import { io } from 'socket.io-client';
+import { SocketReducer } from '../reducers/SocketReducer';
 
 export const SocketIOContext = createContext();
 
 const SocketIOContextProvider = (props) => {
 
-    const [socket, setSocket] = useState(null);
+    const [socket, dispatch] = useReducer(SocketReducer, null);
 
     useEffect(() => {
         const socket = io('http://localhost:5000/namespace/auctionRoom');
@@ -16,13 +17,13 @@ const SocketIOContextProvider = (props) => {
 
         socket.on('connect', () => {
             console.log('Socket id: ', socket.id);
-            setSocket(socket);
+            dispatch({type: 'CONNECTED', socket});
         });
     }, []);
 
     return ( 
-        <SocketIOContext.Provider value={ { socket } }>
-            { props.children }
+        <SocketIOContext.Provider value={ { socket, dispatch } }>
+            { socket && props.children }
         </SocketIOContext.Provider>
     );
 }

@@ -5,6 +5,7 @@ import { apiServer } from "./HomeComponent";
 import { useParams, useLocation } from "react-router-dom";
 import AuctionRoom from "./AuctionRoom";
 import SocketIOContextProvider from "../contexts/SocketIOContext";
+import Countdown from 'react-countdown';
 
 const getSellerInfo = (AuctionID, setSellerInfo) => {
     // fetching seller information with respect to the AuctionID
@@ -64,11 +65,23 @@ const ConnectToRoom = (props) => {
                 <Col sm="12">
                     {
                         props.loggedin && props.isBuyer && BiddingID === null ?
-                            <button id="registerAuctionButton" onClick={registerClick}>Register In Auction</button>
+                            <div>
+                                <p id="timer-float">
+                                    <Countdown date={ data.end_date_time } >
+                                        <p>Auction Ended</p>
+                                    </Countdown>
+                                </p>
+                                <p><button id="registerAuctionButton" onClick={registerClick}>Register In Auction</button></p>
+                            </div>
                             :
                             props.loggedin && props.isBuyer ?
                                 <div>
                                     <p id="bidID">Your Bidding ID: <span className="badge bg-dark">{BiddingID}</span></p>
+                                    <p id="timer-right">
+                                        <Countdown date={ data.end_date_time } >
+                                            <p>Auction Ended</p>
+                                        </Countdown>
+                                    </p>
                                 </div>
                                 :
                                 <div></div>
@@ -78,13 +91,10 @@ const ConnectToRoom = (props) => {
                 </Col>
             </Row>
             
-            { props.loggedin && props.isBuyer && BiddingID !== null ?
-                <SocketIOContextProvider>
-                    <AuctionRoom data={ data } connection={ true } />
-                </SocketIOContextProvider>
-                :
-                <AuctionRoom data={ data } connection={ false } />
-            }
+            <SocketIOContextProvider>
+                <AuctionRoom data={ data } connection={ props.loggedin && props.isBuyer && BiddingID !== null ? true : false } BiddingID = { BiddingID } />
+            </SocketIOContextProvider>
+            
         </Container>
 
 
