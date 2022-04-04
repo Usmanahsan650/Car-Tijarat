@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Navbar, NavItem, NavbarToggler, NavbarBrand, ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu, Nav, Button, Collapse } from 'reactstrap'
 import { apiServer } from "./HomeComponent";
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 
 function Logout(setlogin){
@@ -21,6 +22,8 @@ export function Header(props) {
     const toggle = () => {
         setIsOpen(!isOpen);
     }
+    const history = useHistory();
+
     return (<div id="Header">
         <Navbar id='navbar' dark expand="lg" >
             <NavbarBrand id="Logo" href="/" ><img alt="Car Tijarat" src="/LogoAlpha1.png" height={"25px"} width={"40px"} /></NavbarBrand>
@@ -57,7 +60,7 @@ export function Header(props) {
                         </DropdownToggle>
                         <DropdownMenu style={{"backgroundColor":"#ffffff" ,"zIndex":"1"} } className="ddButton">
                             <DropdownItem header>{user.name}</DropdownItem>
-                           <DropdownItem ><button className="transButton" onClick={()=>{Logout(props.setlogin);}}>Logout</button></DropdownItem>
+                           <DropdownItem ><button className="transButton" onClick={()=>{Logout(props.setlogin); history.push('/'); }}>Logout</button></DropdownItem>
                         </DropdownMenu>
                     </ButtonDropdown></NavItem>
                 </Nav>

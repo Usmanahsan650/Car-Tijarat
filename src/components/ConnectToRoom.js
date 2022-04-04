@@ -71,7 +71,7 @@ const ConnectToRoom = (props) => {
 
             return <span>Auction Ended</span>;
         } else{
-            return <span>{days} days : {hours}:{minutes}:{seconds} left</span>;
+            return <span>{days} day : {hours}:{minutes}:{seconds} left</span>;
         }
     };
     
@@ -98,7 +98,14 @@ const ConnectToRoom = (props) => {
                                     </p>
                                 </div>
                                 :
-                                <div></div>
+                                props.loggedin && props.isSeller ?
+                                    <div>
+                                        <p id="timer-right">
+                                            <Countdown date={ data.end_date_time } renderer={ renderer } />
+                                        </p>
+                                    </div>
+                                    :
+                                    <div></div>
                     }<p>Auction ID: <span className="badge bg-dark">{data.id}</span></p>
                     <p>Vehicle: <span className="fw-bold">{data.RegNo + " " + data.name}</span></p>
                     <p>Vehicle Owner: <span className="fw-bold">{(sellerInfo && sellerInfo[0].full_name) || <span>Loading...</span>}</span></p>
