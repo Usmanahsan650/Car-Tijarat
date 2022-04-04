@@ -111,25 +111,25 @@ function Footer(props) {
             <CardSubtitle ><h4 className="MembershipPrice">Free</h4></CardSubtitle>
             <hr />
             <CardBody>
-              <div><FcApproval /><b>View Auctions</b></div>
+              <div><FcApproval /><b> View Auctions</b></div>
               <div><FcApproval /><b> Add Vehicles To Watchlist</b></div>
             </CardBody>
             <CardFooter>
-              <Button color="success" style={{ "float": "right" }} outline>Subscribe</Button>
+              <Button color="success" style={{ "float": "right" }} disabled>Default</Button>
             </CardFooter>
           </Card>
         </Col>
         <Col md="4">
           <Card color="" id="Membership">
             <CardTitle><h3>Basic</h3></CardTitle>
-            <CardSubtitle><h4 className="MembershipPrice">2000 PKR</h4></CardSubtitle>
+            <CardSubtitle><h4 className="MembershipPrice">500 PKR</h4></CardSubtitle>
             <hr />
             <CardBody>
               <div><FcApproval /><b> View Auctions</b></div>
               <div><FcApproval /><b> Add Vehicles To Watchlist</b></div>
-              <div><FcApproval /><b> Bid on upto 20 auctions</b></div>
-              <div><FcApproval /><b> upto 30 bids per auction</b></div>
-              <div><FcApproval /><b> Valid For 4 Days</b></div>
+              <div><FcApproval /><b> Bid on upto 5 auctions</b></div>
+              <div><FcApproval /><b> Unlimited bids per auction</b></div>
+              <div><FcApproval /><b> Valid For 30 Days</b></div>
             </CardBody>
             <CardFooter>
               <Button color="success" style={{ "float": "right" }} outline>Subscribe</Button>
@@ -139,14 +139,14 @@ function Footer(props) {
         <Col md="4">
           <Card color="" id="Membership">
             <CardTitle><h3>Premium</h3></CardTitle>
-            <CardSubtitle><h4 className="MembershipPrice">5000 PKR</h4></CardSubtitle>
+            <CardSubtitle><h4 className="MembershipPrice">2000 PKR</h4></CardSubtitle>
             <hr />
             <CardBody>
               <div><FcApproval /><b> View Auctions</b></div>
               <div><FcApproval /><b> Add Vehicles To Watchlist</b></div>
-              <div><FcApproval /><b> Bid on upto 50 auctions</b></div>
-              <div><FcApproval /><b> upto 50 bids per auction</b></div>
-              <div><FcApproval /><b> Valid For 15 Days</b></div>
+              <div><FcApproval /><b> Bid on upto 25 auctions</b></div>
+              <div><FcApproval /><b> Unlimited bids per auction</b></div>
+              <div><FcApproval /><b> Valid For 30 Days</b></div>
             </CardBody>
             <CardFooter>
               <Button color="success" style={{ "float": "right" }} outline>Subscribe</Button>

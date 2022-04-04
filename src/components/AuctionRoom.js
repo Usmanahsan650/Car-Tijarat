@@ -1,51 +1,91 @@
-import { Row, Col, ButtonGroup, Button, Form, Card, ListGroup } from "react-bootstrap";
+import { Row, Col, ButtonGroup, Button, Form, Card, ListGroup, Alert } from "react-bootstrap";
 import { useContext, useEffect, useState } from 'react';
 import { SocketIOContext } from "../contexts/SocketIOContext";
 
-const AuctionRoom = ({ data, connection, BiddingID }) => {
+const ShowModal = () => {
+    return(
+        <Alert variant="success">
+            <Alert.Heading>Congratulations! You have won the Auction</Alert.Heading>
+            <p>
+                Aww yeah, you successfully read this important alert message.
+            </p>
+            <hr />
+            <p className="mb-0">
+                Go to your Profile History for further processing.
+            </p>
+        </Alert>
+    );
+};
+
+const AuctionRoom = ({ data, connection, BiddingID, isEnded }) => {
     const [highestBid, setHighestBid] = useState(null);
     const [bidderID, setBidderID] = useState(null);
     const [bidderName, setBidderName] = useState('---');
     const [lastBid, setLastBid] = useState(null);
+    const [bidCount, setBidCount] = useState(null);
+    const [totalBids, setTotalBids] = useState(null);
+    const [winner, setWinner] = useState(false);
 
     const { socket, dispatch }  = useContext(SocketIOContext);
 
     useEffect(() => {
-        dispatch({type: 'JOIN_ROOM', RoomID: data.id, BiddingID});
-        socket.on('auction:updateBid', updateBid);
+        if(!isEnded){
+            dispatch({type: 'JOIN_ROOM', RoomID: data.id, BiddingID});
 
-        if(connection){
-            socket.on('auction:updateLastBid', updateLastBid);
-        
-            console.log('Join Room with Bidding Access');
-        }
-        else{
-            console.log('View only Auction Room');
-        }
-    }, []);
+            socket.on('auction:updateBid', updateBid);
 
-    const updateBid = ({ bid, bidderID}) => {
+            if(connection){
+                socket.on('auction:updateLastBid', updateLastBid);
+            
+                console.log('Join Room with Bidding Access');
+            }
+            else{
+                console.log('View only Auction Room');
+            }
+        }
+
+        else if(isEnded && connection){
+            console.log('firing auction ended event');
+            dispatch({type:'END_AUCTION', RoomID: data.id, BiddingID});
+
+            if(bidderID === BiddingID){
+                setWinner(true);
+            }
+        }
+    }, [connection, isEnded]);
+
+    const updateBid = ({ bid, bidderID, bidCount}) => {
         setHighestBid(bid);
         setBidderID(bidderID);
+        setTotalBids(bidCount);
     };
 
-    const updateLastBid = ({ lastBid }) => {
+    const updateLastBid = ({ lastBid, bidCount }) => {
         setLastBid(lastBid);
+        setBidCount(bidCount);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if(parseInt(document.getElementById('bid').value) > highestBid){
-            dispatch({type: 'BID_PLACED', RoomID: data.id, bid: document.getElementById('bid').value, bidderID: BiddingID });
+        if(isEnded){
+            alert('Auction has ended. You cant place any more bid');
         }
+
         else{
-            alert('Your bid should be higher than the highest bid');
+            if(parseInt(document.getElementById('bid').value) > highestBid){
+                dispatch({type: 'BID_PLACED', RoomID: data.id, bid: document.getElementById('bid').value, bidderID: BiddingID });
+            }
+            
+            else{
+                alert('Your bid should be higher than the highest bid');
+            }
         }
     }
 
     return (
         <div>
+            { winner && <ShowModal /> }
 
             <Row>
 
@@ -85,7 +125,7 @@ const AuctionRoom = ({ data, connection, BiddingID }) => {
                                     <Form.Group>
                                         <Form.Control type="number" placeholder="Enter bid" name="bid" id="bid" />
                                         <Form.Text className="text-muted">
-                                            Bids remaining: <span className="fw-bold">{ }</span>
+                                            Total Bids placed: <span className="fw-bold">{ totalBids }</span>
                                         </Form.Text>
                                     </Form.Group>
                                 </Form>
@@ -97,12 +137,14 @@ const AuctionRoom = ({ data, connection, BiddingID }) => {
 
                             <div style={ { "marginTop": "15px" } }>
                                 <p>Your Last Bid: <span className="fw-bold">{ lastBid }</span></p>
-                                <p>Bid Count: <span className="fw-bold">{  }</span></p>
+                                <p>Your Bid Count: <span className="fw-bold">{ bidCount }</span></p>
                             </div>
 
                         </div>
                         :
-                        null
+                        <div>
+                            <p>Total Bids placed: <span className="fw-bold">{ totalBids }</span></p>
+                        </div>
                     }
                 </Col>
             </Row>

@@ -1,5 +1,3 @@
-import AuctionRoom from "../components/AuctionRoom";
-
 export const SocketReducer = (state, action) => {
     switch(action.type){
 
@@ -12,6 +10,10 @@ export const SocketReducer = (state, action) => {
 
         case 'BID_PLACED':
             state.emit('auction:bidPlaced', { RoomID: action.RoomID, bid: action.bid, bidderID: action.bidderID });
+            return state;
+
+        case 'END_AUCTION':
+            state.emit('auction:end', { RoomID: action.RoomID, BiddingID: action.BiddingID });
             return state;
 
         default:
