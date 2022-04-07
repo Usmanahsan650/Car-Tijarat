@@ -6,7 +6,7 @@ import { useParams, useLocation } from "react-router-dom";
 import AuctionRoom from "./AuctionRoom";
 import SocketIOContextProvider from "../contexts/SocketIOContext";
 import Countdown from 'react-countdown';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 const getSellerInfo = (AuctionID, setSellerInfo) => {
     // fetching seller information with respect to the AuctionID
@@ -131,7 +131,10 @@ const ConnectToRoom = (props) => {
                         <div><span>Remaining Auctions: &nbsp;</span><span style={{ "fontStyle": "italic", "fontWeight": "bold" }}>{MemberPackage.RemainingAuction || "loading..."}</span></div>
                     </div>
                     :
-                    <diV style={{"color":"red"}} >You are not subscribed to our membership!</diV>
+                    <div>
+                        <p style={{"color":"red"}}>You are not subscribed to any of the bidder membership!</p>
+                        <p>Goto <Link to={ { pathname: '/' } }>Home</Link> and register in order to participate in an auction</p>
+                    </div>
                 }
             </ModalBody>
             <ModalFooter>

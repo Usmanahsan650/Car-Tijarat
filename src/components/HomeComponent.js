@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Badge, Button, Card, CardBody, CardFooter, CardImg, CardSubtitle, CardTitle, Col, Container, Row} from "reactstrap";
+import { Alert } from "react-bootstrap";
 import { Slider } from "./slider";
 import Carousel from "react-multi-carousel";
 import { FcApproval } from "react-icons/fc";
@@ -21,7 +22,7 @@ export function Home(props) {
         </Row>
       </Container>
 
-      { !props.isSeller ? <Footer /> : null }
+      { props.loggedin && props.isBuyer ? <Footer /> : null }
     </React.Fragment>
   )
 }
@@ -99,12 +100,47 @@ function FeaturedCars() {
     </Carousel>
   )
 }
-function Footer(props) {
+
+function Footer() {
+  const [show, setShow] = useState(false);
+  const [message, setMessage] = useState({});
+
+  const subscribe = (e, typeID) => {
+    e.preventDefault();
+
+    fetch('http://localhost:5000/api/subscription/subscribe', {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ typeID, UserCNIC: JSON.parse(localStorage.getItem("user")).cnic })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if(data.error){
+          setMessage({ color: 'danger', message: data.error });
+        }
+        else if(data.result){
+          setMessage({ color: 'primary', message: data.result });
+        }
+        setShow(true);
+      })
+      .catch(err => console.log(err));
+  }
+
   return (
 
-    <Container className="Footer" style={{ "marginBottom": "10px", "borderRadius": "10px", "marginTop": "5px" }}>
+    <Container className="Footer" style={{ marginBottom: "10px", borderRadius: "10px", marginTop: "5px" }}>
       <Row>
-        <h2 className="Headings" style={{ "textAlign": "center", "color": "white" }}>Bidder's Membership Choices</h2>
+        
+      </Row>
+
+      <Row>
+        <h2 className="Headings" style={{ textAlign: "center", color: "white" }}>Bidder's Membership Choices</h2>
+        { show && 
+          <Alert variant={ message.color } onClose={() => setShow(false)} dismissible>
+            <p style={ { textAlign: "center" } }>{ message.message }</p>
+          </Alert>
+        }
+
         <Col md="4">
           <Card color="" id="Membership">
             <CardTitle ><h3>Guest</h3></CardTitle>
@@ -119,6 +155,7 @@ function Footer(props) {
             </CardFooter>
           </Card>
         </Col>
+
         <Col md="4">
           <Card color="" id="Membership">
             <CardTitle><h3>Basic</h3></CardTitle>
@@ -132,10 +169,11 @@ function Footer(props) {
               <div><FcApproval /><b> Valid For 30 Days</b></div>
             </CardBody>
             <CardFooter>
-              <Button color="success" style={{ "float": "right" }} outline>Subscribe</Button>
+              <Button color="success" style={{ "float": "right" }} onClick={ (e) => subscribe(e, 1) } outline>Subscribe</Button>
             </CardFooter>
           </Card>
         </Col>
+        
         <Col md="4">
           <Card color="" id="Membership">
             <CardTitle><h3>Premium</h3></CardTitle>
@@ -149,13 +187,12 @@ function Footer(props) {
               <div><FcApproval /><b> Valid For 30 Days</b></div>
             </CardBody>
             <CardFooter>
-              <Button color="success" style={{ "float": "right" }} outline>Subscribe</Button>
+              <Button color="success" style={{ "float": "right" }} onClick={ (e) => subscribe(e, 2) } outline>Subscribe</Button>
             </CardFooter>
           </Card>
         </Col>
 
       </Row>
     </Container>
-
-  )
+  );
 }

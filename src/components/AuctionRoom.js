@@ -7,7 +7,7 @@ const ShowModal = () => {
         <Alert variant="success">
             <Alert.Heading>Congratulations! You have won the Auction</Alert.Heading>
             <p>
-                Aww yeah, you successfully read this important alert message.
+                
             </p>
             <hr />
             <p className="mb-0">
@@ -20,11 +20,12 @@ const ShowModal = () => {
 const AuctionRoom = ({ data, connection, BiddingID, isEnded }) => {
     const [highestBid, setHighestBid] = useState(null);
     const [bidderID, setBidderID] = useState(null);
-    const [bidderName, setBidderName] = useState('---');
     const [lastBid, setLastBid] = useState(null);
     const [bidCount, setBidCount] = useState(null);
     const [totalBids, setTotalBids] = useState(null);
     const [winner, setWinner] = useState(false);
+    const [show, setShow] = useState(false);
+    const [isplaced, setIsPlaced] = useState(false);
 
     const { socket, dispatch }  = useContext(SocketIOContext);
 
@@ -73,12 +74,12 @@ const AuctionRoom = ({ data, connection, BiddingID, isEnded }) => {
         }
 
         else{
-            if(parseInt(document.getElementById('bid').value) > highestBid){
-                dispatch({type: 'BID_PLACED', RoomID: data.id, bid: document.getElementById('bid').value, bidderID: BiddingID });
+            if(parseInt(document.getElementById('bid').value) > highestBid && parseInt(document.getElementById('bid').value) > data.startingPrice){
+                setShow(true);
             }
             
             else{
-                alert('Your bid should be higher than the highest bid');
+                alert('Your bid should be higher than the starting bid and highest bid');
             }
         }
     }
@@ -86,6 +87,26 @@ const AuctionRoom = ({ data, connection, BiddingID, isEnded }) => {
     return (
         <div>
             { winner && <ShowModal /> }
+            { show && 
+                <Alert variant="success" onClose={() => setShow(false)} dismissible>
+                    <p>Are you sure you want to place the bid of <span style={ { fontWeight: "bold" }}>Rs. {document.getElementById('bid').value}</span></p>
+                    <div className="d-flex justify-content-end">
+                        <Button 
+                            onClick={() => {
+                                dispatch({type: 'BID_PLACED', RoomID: data.id, bid: document.getElementById('bid').value, bidderID: BiddingID });
+                                setShow(false);
+                                setIsPlaced(true);
+                                setTimeout(() => {
+                                    setIsPlaced(false);
+                                }, 5000)
+                            } } 
+                            variant="outline-success"
+                        >
+                            Sure
+                        </Button>
+                    </div>
+                </Alert> 
+            }
 
             <Row>
 
@@ -109,21 +130,24 @@ const AuctionRoom = ({ data, connection, BiddingID, isEnded }) => {
                 </Col>
 
                 <Col>
-                    <p>Highest Bid: <span className="fw-bold">{ highestBid }</span></p>
+                    <p>Starting Bid: <span className="fw-bold">Rs. { data.startingPrice }</span></p>
+
+                    <p>Highest Bid: <span className="fw-bold">Rs. { highestBid }</span></p>
 
                     <p>Bidder's Id: <span className="fw-bold">{ bidderID }</span></p>
-                    <p>Bidder's Name: <span className="fw-bold">{ bidderName }</span></p>
+                    
+                    {/* <p>Bidder's Name: <span className="fw-bold">{ bidderName }</span></p> */}
                     
                     { connection ?
                         <div>
-                            <ButtonGroup aria-label="Basic example">
+                            <ButtonGroup aria-label="Basic example" className="m-2">
                                 <Button variant="secondary" 
                                         className="me-2"
                                         onClick={ () => { document.getElementById('bid').value++; } }
                                 >+</Button>
                                 <Form onSubmit={ handleSubmit } >
                                     <Form.Group>
-                                        <Form.Control type="number" placeholder="Enter bid" name="bid" id="bid" />
+                                        <Form.Control type="number" placeholder="Enter bid" name="bid" id="bid"/>
                                         <Form.Text className="text-muted">
                                             Total Bids placed: <span className="fw-bold">{ totalBids }</span>
                                         </Form.Text>
@@ -135,8 +159,14 @@ const AuctionRoom = ({ data, connection, BiddingID, isEnded }) => {
                                 >-</Button>
                             </ButtonGroup>
 
+                            { isplaced &&
+                                <Alert variant="success" onClose={() => setIsPlaced(false)} dismissible>
+                                    <p>Bid successfully placed!</p>
+                                </Alert>
+                            }
+
                             <div style={ { "marginTop": "15px" } }>
-                                <p>Your Last Bid: <span className="fw-bold">{ lastBid }</span></p>
+                                <p>Your Last Bid: <span className="fw-bold">{ lastBid !== 'No Bid placed'? `Rs. ${lastBid}` : lastBid }</span></p>
                                 <p>Your Bid Count: <span className="fw-bold">{ bidCount }</span></p>
                             </div>
 
