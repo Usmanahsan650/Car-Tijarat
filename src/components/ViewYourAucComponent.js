@@ -124,7 +124,14 @@ export function  ViewAuctionsList(props){
       }
       else{
         Fetchdata(setList,false,props.sellerID);
+
+          var id = setInterval(() => {
+            Fetchdata(setList,false,props.sellerID);
+            console.log('real-time data update');
+          }, 60000); // after every 1 min
       }
+
+      return () => props.sellerID && clearInterval(id);
   },[props.sellerID])
     
     return(

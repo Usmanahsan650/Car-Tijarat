@@ -135,6 +135,14 @@ const AuctionRoom = ({ data, connection, BiddingID, isEnded }) => {
                     <p>Highest Bid: <span className="fw-bold">Rs. { highestBid }</span></p>
 
                     <p>Bidder's Id: <span className="fw-bold">{ bidderID }</span></p>
+
+                    { highestBid === lastBid ?
+                        <Alert variant="success">
+                            <p>You have the Highest Bid</p>
+                        </Alert>
+                        :
+                        <></>
+                    }
                     
                     {/* <p>Bidder's Name: <span className="fw-bold">{ bidderName }</span></p> */}
                     

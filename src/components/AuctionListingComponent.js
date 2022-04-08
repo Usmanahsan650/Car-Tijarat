@@ -154,6 +154,13 @@ export function AuctionsList(options) {
 
   useEffect(() => {
     Fetchdata(setList, false);
+
+    const id = setInterval(() => {
+      Fetchdata(setList, false);
+      console.log('real-time data update');
+    }, 60000); // after every 1 min
+
+    return () => clearInterval(id);
   }, []);
 
   return (

@@ -71,7 +71,7 @@ const ConnectToRoom = (props) => {
 
             return <span>Auction Ended</span>;
         } else{
-            return <span>{days} day : {hours}:{minutes}:{seconds} left</span>;
+            return <span>{days} day : {hours} hrs : {minutes} mins : {seconds} sec left</span>;
         }
     };
     
