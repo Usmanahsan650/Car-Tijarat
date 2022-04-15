@@ -318,7 +318,7 @@ body{
 .Splashlogo{
     transform: rotate(0deg);
   opacity: 0;
-  width: 20vh;
+  width: 30vh;
   height: 20vh;
   animation: fadein 3s ease-in-out;
   transform: scale(1.5);
