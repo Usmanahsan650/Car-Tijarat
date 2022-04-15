@@ -284,3 +284,63 @@ body{
   margin: 5px;
   font-size: larger;
 }
+.splash{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: teal;
+  color: white;
+}
+.display-none{
+  display: none;
+}
+@keyframes fadein{
+  to{
+    transform: scale(2);
+    opacity: 1;
+   
+  }
+ 
+}
+@keyframes mymove {
+  0%   {transform: translateX(0px);}
+  50%  {transform: translateX(60px);}
+  100%  {transform: translateX(0px);}
+}
+.fadein{
+  
+  opacity: 0;
+  animation: fadein 2s ease-in;
+}
+.Splashlogo{
+    transform: rotate(0deg);
+  opacity: 0;
+  width: 20vh;
+  height: 20vh;
+  animation: fadein 3s ease-in-out;
+  transform: scale(1.5);
+  content: url("/public/LogoAlpha1.png");
+}
+.dot {
+  height: 15px;
+  width: 15px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  display: inline-block;
+  animation: mymove 1s infinite ;
+}
+.loading{
+  border-radius: 5px;
+  -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;
+  color: transparent;
+  align-items: center;
+  text-shadow: rgba(245,245,245,0.5) 3px 5px 1px;
+  width: 75px;
+  height: 20px;
+  background-color: gray;
+}

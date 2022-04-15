@@ -12,6 +12,7 @@ function Fetchdata(setList, options) {
       method: "GET",
       credentials: "include",
     }).then((response) => response.json()).then((data) => {
+       console.log(data)
       setList(data);
     }).catch(err => console.error(err));
 

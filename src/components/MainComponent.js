@@ -20,7 +20,6 @@ export function Main(props){
     const [loggedin,setlogin]=useState(false);
     const [isSeller,setSeller]=useState(false);
     const [isBuyer,setBuyer]=useState(false);
-    
     const location=useLocation();
     useEffect(()=>{
         let user=window.localStorage.getItem("user");
