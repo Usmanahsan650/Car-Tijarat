@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export function Login(props){
     const history=useHistory();
-    const [email,setEmail]=useState("");
-    const [password,setPw]=useState("");
     const [validateEmail,setEmailValidate]=useState(true);
     const [validatePw,setPwVaildate]=useState(true);
 
@@ -37,30 +35,28 @@ const handleSubmit=async(e)=>{
             if(props.as === "buyer"){
                 props.setBuyer(true);
                 props.setSeller(false);
-                history.replace("/home");
+                history.replace("/auctions");
             }
 
             else if(props.as === "seller"){
                 props.setBuyer(false);
                 props.setSeller(true);
-                history.replace("/SellYourCar");
+                history.replace("/registeredCars");
             }
             
         }else if(data.err==="email"){
             setEmailValidate(false);
             
         }
-        else{
+        else if(data.err==="password"){
             setPwVaildate(false);
+        }
+        else if(data.status===false){
+            alert(data.message)
         }
        
 
     })
-
-    setEmail(target.email.value);
-    setPw(target.password.value);
-
-
     // setTimeout(()=>{
     //     fetch(`http://localhost:5000/api/login/${props.as}/check`,{
     //     method:"GET",
@@ -93,7 +89,7 @@ const handleSubmit=async(e)=>{
                     <Input required type="password" placeholder="password" invalid={!validatePw}  name="password"/>
                     <FormFeedback>Invalid Password</FormFeedback>
                     </FormGroup>
-                    <Button type="submit" outline color="dark" className="mt-2 float-right">Login</Button>
+                    <Button type="submit"  color="primary" className=" expanded mt-2 ">Login</Button>
                 </Form>
                 </div>
             </Col>
