@@ -344,3 +344,7 @@ body{
   height: 20px;
   background-color: gray;
 }
+.carousel {
+  margin-top: -50px;
+  position: relative;
+}
