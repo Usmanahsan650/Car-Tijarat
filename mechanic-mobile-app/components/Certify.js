@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { View, TouchableOpacity, Text, TextInput, Alert } from 'react-native'
 import { StyleSheet, ScrollView } from 'react-native'
 import { Button, Input } from 'react-native-elements'
+import {React_App_Server} from "@env"
 import { Icon } from 'react-native-elements'
 function AttributeInput({ rate, setRating, name }) {
     return (
@@ -116,7 +117,7 @@ export default function Certify({mechanicName,phone,cnic}) {
             mechanicPhone:phone,
             attributes
         }
-        fetch(`http://${process.env.REACT_APP_Server}:5000/api/mechanic/generateReport`,{
+        fetch(`http://${REACT_APP_Server}:5000/api/mechanic/generateReport`,{
             method:"POST",
             mode:'cors',
             headers:{

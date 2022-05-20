@@ -3,6 +3,7 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import { useState } from 'react';
 import { TextInput } from 'react-native';
 import { TouchableOpacity ,ImageBackground,Image} from 'react-native';
+import {React_App_Server} from "@env"
 import { useEffect } from 'react';
 export default function Login({navigation,loggedin,setlogin}){
     const [CNIC,setCNIC]=useState("");
@@ -17,7 +18,7 @@ export default function Login({navigation,loggedin,setlogin}){
       console.log(CNIC," ",pw)
       if(CNIC!=''&&pw!='')
       {
-        fetch(`http://192.168.0.106:5000/api/mechanic/login`,{
+        fetch(`http://${React_App_Server}:5000/api/mechanic/login`,{
           method:"POST",
           mode:"cors",
           credentials:"include",
