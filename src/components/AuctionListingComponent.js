@@ -7,7 +7,7 @@ import { compareDates, timeConvert } from '../utils';
 function Fetchdata(setList, options) {
 
   if (!options) {
-    fetch(`${process.env.API_SERVER}/api/auction/auctions_list`, {
+    fetch(process.env.API_SERVER+'/api/auction/auctions_list', {
       method: "GET",
       credentials: "include",
     }).then((response) => response.json()).then((data) => {
@@ -18,7 +18,7 @@ function Fetchdata(setList, options) {
   }
   else {
     const query = document.getElementById("query").value.trim();
-    fetch(`${process.env.API_SERVER}/api/auction/auctions_list?search=${query}`, {
+    fetch(process.env.API_SERVER+`/api/auction/auctions_list?search=${query}`, {
       method: "GET",
       credentials: "include",
     }).then((resonse) => resonse.json()).then((data) => {
