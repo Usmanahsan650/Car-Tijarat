@@ -7,7 +7,7 @@ import { compareDates, timeConvert } from '../utils';
 function Fetchdata(setList,options,id){
     
     if(!options){
-        fetch(`${process.env.API_SERVER}/api/auction/sellerslisting?sellerID=${id}`,{
+        fetch(`${process.env.REACT_APP_API_URL}/api/auction/sellerslisting?sellerID=${id}`,{
             method:"GET",
             credentials:"include",
           }).then((response)=>response.json()).then((data)=>{
@@ -32,7 +32,7 @@ function CreateCards({List,gridView}){
          <Card >
              <Row className="no-gutters">
             <Col lg="4">
-          <CardImg  src={process.env.API_SERVER+auction.Image} height={"200px"} />
+          <CardImg  src={process.env.REACT_APP_API_URL+auction.Image} height={"200px"} />
           </Col>
           <Col lg="5">
           <CardBody>
@@ -69,7 +69,7 @@ function CreateCards({List,gridView}){
             return(
                 <Col sm="12" md="6" lg="3" style={{ "boxShadow": "5px 10px 5px grey" }} key={auction.regNO}>
                 <Card>
-                  <CardImg src={process.env.API_SERVER+auction.Image} height={"200px"} />
+                  <CardImg src={process.env.REACT_APP_API_URL+auction.Image} height={"200px"} />
                   <CardBody>
                     <CardTitle>
                       <h4 className="Headings">{auction.name}</h4>

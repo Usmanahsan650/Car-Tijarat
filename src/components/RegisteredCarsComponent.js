@@ -26,7 +26,7 @@ export function RegisteredCars(props){
           history.replace('/login/seller')
         }
         else
-        fetch(`${process.env.API_SERVER}/api/vehicle/vehicle/getRegisteredCars`,{
+        fetch(`${process.env.REACT_APP_API_URL}/api/vehicle/vehicle/getRegisteredCars`,{
             method:"POST",
             mode:"cors",
             credentials:"include",
@@ -51,7 +51,7 @@ export function RegisteredCars(props){
       const form=new FormData(target);
       const data=Object.fromEntries(form.entries());
       console.log(data);
-      fetch(`${process.env.API_SERVER}/api/auction/register_for_auction`,{
+      fetch(`${process.env.REACT_APP_API_URL}/api/auction/register_for_auction`,{
         method:"POST",
         mode:"cors",
         headers:{
@@ -67,7 +67,7 @@ export function RegisteredCars(props){
         return (
           <Col sm="12" md="4" lg="3" style={{ "box-shadow": "5px 10px 5px grey"}} key={car.RegNo}>
             <Card>
-              <CardImg src={process.env.API_SERVER+car.Image} height={"200px"}/>
+              <CardImg src={process.env.REACT_APP_API_URL+car.Image} height={"200px"}/>
               <CardBody>
                 <CardTitle>
                   <h4 className="Headings">{car.name}</h4>

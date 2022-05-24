@@ -14,7 +14,7 @@ const handleSubmit=async(e)=>{
     const target=e.target;
      
     //console.log(props.as)
-    fetch(`${process.env.API_SERVER}/api/login/${props.as}`,{
+    fetch(`${process.env.REACT_APP_API_URL}/api/login/${props.as}`,{
         method:"POST",
         mode:"cors",
         credentials:"include",
