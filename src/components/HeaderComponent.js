@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Navbar, NavItem, NavbarToggler, NavbarBrand, ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu, Nav, Button, Collapse } from 'reactstrap'
-import { apiServer } from "./HomeComponent";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -8,7 +7,7 @@ import { useHistory } from "react-router-dom";
 function Logout(setlogin){
     window.localStorage.removeItem("user")
     setlogin(false);
-    fetch(`${apiServer}/api/logout`,{
+    fetch(`${process.env.API_SERVER}/api/logout`,{
         method:"GET",
         credentials:"include",
         mode:"cors"

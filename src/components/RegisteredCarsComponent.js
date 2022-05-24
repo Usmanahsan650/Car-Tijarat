@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import { useEffect } from "react/cjs/react.development";
 import { Button, Container,Col,Row ,Card,CardImg,CardBody,CardTitle,CardFooter,CardSubtitle, Modal, ModalHeader, ModalBody, Form, Input, FormGroup, Label} from "reactstrap";
-import { apiServer } from "./HomeComponent";
 
 function validateDate(start,end){
   const d1=new Date(start);
@@ -27,7 +26,7 @@ export function RegisteredCars(props){
           history.replace('/login/seller')
         }
         else
-        fetch(`${apiServer}/api/vehicle/vehicle/getRegisteredCars`,{
+        fetch(`${process.env.API_SERVER}/api/vehicle/vehicle/getRegisteredCars`,{
             method:"POST",
             mode:"cors",
             credentials:"include",
@@ -52,7 +51,7 @@ export function RegisteredCars(props){
       const form=new FormData(target);
       const data=Object.fromEntries(form.entries());
       console.log(data);
-      fetch(`${apiServer}/api/auction/register_for_auction`,{
+      fetch(`${process.env.API_SERVER}/api/auction/register_for_auction`,{
         method:"POST",
         mode:"cors",
         headers:{
@@ -68,7 +67,7 @@ export function RegisteredCars(props){
         return (
           <Col sm="12" md="4" lg="3" style={{ "box-shadow": "5px 10px 5px grey"}} key={car.RegNo}>
             <Card>
-              <CardImg src={apiServer+car.Image} height={"200px"}/>
+              <CardImg src={process.env.API_SERVER+car.Image} height={"200px"}/>
               <CardBody>
                 <CardTitle>
                   <h4 className="Headings">{car.name}</h4>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { apiServer } from "./HomeComponent";
 import { useParams, useLocation } from "react-router-dom";
 import AuctionRoom from "./AuctionRoom";
 import SocketIOContextProvider from "../contexts/SocketIOContext";
@@ -10,7 +9,7 @@ import { useHistory, Link } from "react-router-dom";
 
 const getSellerInfo = (AuctionID, setSellerInfo) => {
     // fetching seller information with respect to the AuctionID
-    fetch('http://localhost:5000/api/seller/seller_info/' + AuctionID)
+    fetch(process.env.API_SERVER+'/api/seller/seller_info/' + AuctionID)
         .then(response => {
             if (!response.ok) {
                 throw Error('Could not fetch the seller info.');
@@ -40,7 +39,7 @@ const ConnectToRoom = (props) => {
         getSellerInfo(AuctionID, setSellerInfo);
 
         if (props.loggedin && props.isBuyer && user) {
-            fetch(`${apiServer}/api/auction/registered_for_bidding`, {
+            fetch(`${process.env.API_SERVER}/api/auction/registered_for_bidding`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -153,7 +152,7 @@ function fetchPackages(setPackage) {
     const user = JSON.parse(window.localStorage.getItem("user"));
 
     if (user) {
-        fetch(`${apiServer}/api/subscription/getRegisteredPackages`, {
+        fetch(`${process.env.API_SERVER}/api/subscription/getRegisteredPackages`, {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -168,7 +167,7 @@ function fetchPackages(setPackage) {
 
 function confirmation(AuctionID, RegID, setReg, setModal) {
     if (window.confirm("Are You Sure?\nPress \"OK\" to register for this auction\nPress \"Cancel\" to abort")) {
-        fetch(`${apiServer}/api/auction/register_for_bidding`, {
+        fetch(`${process.env.API_SERVER}/api/auction/register_for_bidding`, {
             method: "POST",
             credentials: "include",
             mode: "cors",

@@ -1,9 +1,9 @@
 import React from "react";
-import { apiServer } from "./HomeComponent";
 import { Container, Row, Col, Form, Input, Label, FormGroup, Button } from "reactstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { FormFeedback } from "reactstrap";
 import { useEffect } from "react";
+
 function valid(target) {
     target.setAttribute("aria-invalid", "false");
     target.setAttribute("aria-valid", "true");
@@ -82,7 +82,7 @@ export function SellCar(props) {
         e.preventDefault();
 
         const f = new FormData(e.target)
-        fetch(`${apiServer}/api/vehicle/vehicle/register`, {
+        fetch(`${process.env.API_SERVER}/api/vehicle/vehicle/register`, {
             mode: 'cors',
             method: 'POST',
 

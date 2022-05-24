@@ -29,7 +29,7 @@ export function Register(props) {
             isBuyer:target.isBuyer.checked?1:0
         }
         console.log(f)
-        fetch(`http://localhost:5000/api/user/signup`, {
+        fetch(`${process.env.API_SERVER}/api/user/signup`, {
             method: "POST",
             mode: "cors",
             credentials: "include",

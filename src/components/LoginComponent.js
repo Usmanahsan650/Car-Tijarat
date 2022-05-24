@@ -14,7 +14,7 @@ const handleSubmit=async(e)=>{
     const target=e.target;
      
     //console.log(props.as)
-    fetch(`http://localhost:5000/api/login/${props.as}`,{
+    fetch(`${process.env.API_SERVER}/api/login/${props.as}`,{
         method:"POST",
         mode:"cors",
         credentials:"include",
@@ -57,15 +57,6 @@ const handleSubmit=async(e)=>{
        
 
     })
-    // setTimeout(()=>{
-    //     fetch(`http://localhost:5000/api/login/${props.as}/check`,{
-    //     method:"GET",
-    //     credentials:"include",
-    //     mode:'cors'
-    // })
-    // },5000)
-    
-    //console.log(target.email.value)
 }
     return(
         <Container>

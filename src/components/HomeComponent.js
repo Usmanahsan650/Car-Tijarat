@@ -7,7 +7,6 @@ import { FcApproval } from "react-icons/fc";
 import "react-multi-carousel/lib/styles.css";
 import { compareDates, timeConvert } from "../utils";
 import { Link } from "react-router-dom";
-export const apiServer='http://localhost:5000';
 
 export function Home(props) {
   return (
@@ -30,7 +29,7 @@ export function Home(props) {
 function FeaturedCars() {
   const [carsList, SetCars] = useState([]);
   if (carsList == "") {
-    fetch(`${apiServer}/api/auction/auctions_list`,{
+    fetch(`${process.env.API_SERVER}/api/auction/auctions_list`,{
       method:"GET",
       credentials:"include",
     }).then((resonse)=>resonse.json()).then((data)=>{
@@ -44,7 +43,7 @@ function FeaturedCars() {
     return (
       <Col sm="9" style={{ "boxShadow": "5px 10px 5px grey" }} key={auction.regNO}>
         <Card>
-          <CardImg src={apiServer+auction.Image} height={"200px"} />
+          <CardImg src={process.env.API_SERVER+auction.Image} height={"200px"} />
           <CardBody>
             <CardTitle>
               <h4 className="Headings">{auction.name}</h4>
@@ -108,7 +107,7 @@ function Footer() {
   const subscribe = (e, typeID) => {
     e.preventDefault();
 
-    fetch('http://localhost:5000/api/subscription/subscribe', {
+    fetch(process.env.API_SERVER+'/api/subscription/subscribe', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ typeID, UserCNIC: JSON.parse(localStorage.getItem("user")).cnic })

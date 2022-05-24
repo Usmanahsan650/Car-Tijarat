@@ -9,7 +9,7 @@ const SocketIOContextProvider = (props) => {
     const [socket, dispatch] = useReducer(SocketReducer, null);
 
     useEffect(() => {
-        const socket = io('http://localhost:5000/namespace/auctionRoom');
+        const socket = io(process.env.API_SERVER+'/namespace/auctionRoom');
 
         socket.on('connect_error', (err) => {
             console.log(`connect_error due to ${err.message}`);
