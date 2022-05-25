@@ -1,8 +1,8 @@
 import React from "react";
 import Datetime from 'react-datetime';
 import { useHistory } from "react-router-dom";
-import { useState } from "react/cjs/react.development";
-import { useEffect } from "react/cjs/react.development";
+import { useState } from "react";
+import { useEffect } from "react";
 import { Button, Container,Col,Row ,Card,CardImg,CardBody,CardTitle,CardFooter,CardSubtitle, Modal, ModalHeader, ModalBody, Form, Input, FormGroup, Label} from "reactstrap";
 
 function validateDate(start,end){

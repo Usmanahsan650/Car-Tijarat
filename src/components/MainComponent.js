@@ -6,7 +6,7 @@ import { About } from "./AboutUsComponent";
 import { useLocation } from "react-router-dom";
 import { Login } from "./LoginComponent";
 import { AuctionsList } from "./AuctionListingComponent";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { SellerOptions } from "./sellerOptionsComponent";
 import { SellCar } from "./SellCarComponent";
