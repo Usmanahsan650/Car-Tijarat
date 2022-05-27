@@ -223,7 +223,7 @@ export function SellCar(props) {
                                 <FormFeedback>{verified===false?"The file should be of type PNG,JPG or JPEG":"License plate cant be verified"}</FormFeedback>
                             </FormGroup>
                         </Col>
-                        <Input name="IsLicenseVerified" type="hidden" value={verified}/>
+                        <Input name="IsLicenseVerified" type="hidden" value={verified?1:0 }/>
                         <Col sm="12" md="4" className="offset-md-4">
                             <Button className="m-auto expanded" color="warning" type="submit">Submit</Button>
                         </Col>
