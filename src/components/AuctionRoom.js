@@ -124,7 +124,7 @@ const AuctionRoom = ({ data, connection, BiddingID, isEnded }) => {
 
                 <Col>
                     <Card className="text-center">
-                        <Card.Img variant="top" src={'http://localhost:5000' + data.Image} className="rounded img-fluid" />
+                        <Card.Img variant="top" src={process.env.REACT_APP_EBS_URL + data.Image} className="rounded img-fluid" />
                         <Card.Header><span className="fst-italic">{data.description}</span></Card.Header>
                     </Card>
                 </Col>
