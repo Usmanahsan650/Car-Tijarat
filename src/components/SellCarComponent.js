@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Container, Row, Col, Form, Input, Label, FormGroup, Button } from "reactstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { FormFeedback } from "reactstrap";
 import { useEffect } from "react";
+import { Spinner } from "react-bootstrap";
 
 function valid(target) {
     target.setAttribute("aria-invalid", "false");
@@ -16,7 +17,18 @@ function invalid(target) {
     target.classList.remove("is-valid");
     target.classList.add("is-invalid")
 }
-function Validate(e) {
+async function ANPRdetection(image){
+  let formdata=new FormData();
+  formdata.append("image",image);
+  try{  
+    return await fetch(process.env.REACT_APP_ANPR_URL,{method:"POST",body:formdata}).then(res=>res.text())
+  }
+  catch(e){
+      console.log(e);
+      return "no license plate detected"
+  }
+}
+async function Validate(e,ref=null,verify=null,spin=null) {
     const target = e.target;
     const value = target.value;
     if (value === "") {
@@ -50,8 +62,8 @@ function Validate(e) {
             break;
         }
         case "RegNo":{
-            console.log(value.match("^[A-Z]{3}-[0-9]{3}"))
-            if(!value.match("^[A-Z]{3}-[0-9]{3}"))
+            console.log(value.match("^[A-Z]*-[0-9]*"))
+            if(!value.match("^[A-Z]*-[0-9]*"))
                 invalid(target);
             else{
                 valid(target);
@@ -61,7 +73,16 @@ function Validate(e) {
         case "Image":{
             const ext=value.split(".")[1].toLowerCase();
             if(ext==="png"||ext==="jpg"||ext==="jpeg"){
-                valid(target);
+                spin(true)
+                const expected=await ANPRdetection(target.files[0]);
+                spin(false);
+                console.log("Pridicted value :"+ expected+"provided Value"+ref.current.value.replace("-",""))
+                if(expected===ref.current.value.replace("-",""))
+                  {  valid(target);
+                    verify(target);
+                  }
+                else
+                    invalid(target)
             }else{
                 invalid(target);
             }
@@ -75,7 +96,9 @@ function Validate(e) {
     }
 }
 export function SellCar(props) {
-
+    const regNoRef=useRef("");
+    const [spin,Setspinner]=useState(false);
+    const [verified,SetVerfified]=useState(false);
     const history = useHistory();
     const user = JSON.parse(window.localStorage.getItem("user"));
     const handleSubmit = (e) => {
@@ -133,7 +156,7 @@ export function SellCar(props) {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="RegNO">Registration #</Label>
-                                    <Input type="text" minLength={7} maxLength={7} onChange={Validate} placeholder="Registration ###-###" name="RegNo" />
+                                    <Input type="text" minLength={7} innerRef={regNoRef}  maxLength={7} onChange={Validate} placeholder="Registration ###-###" name="RegNo" />
                                     <FormFeedback  >Invalid registeration number(Format ABC-123)</FormFeedback>
                                 </FormGroup>
                             </Col>
@@ -189,10 +212,18 @@ export function SellCar(props) {
                                 <Label for="Image">
                                     Image
                                 </Label>
-                                <Input type="file" onChange={Validate} name="Image" id="Image" />
-                                <FormFeedback>The file should be of type PNG,JPG or JPEG</FormFeedback>
+                                <Input type="file" onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner)} name="Image" id="Image" />{
+                                    spin?
+                                    <div>
+                                    <span>Our AI Model is verifying the image</span>
+                                    <Spinner animation="border" />
+                                </div>
+                                :
+                                <React.Fragment></React.Fragment>}
+                                <FormFeedback>{verified===false?"The file should be of type PNG,JPG or JPEG":"License plate cant be verified"}</FormFeedback>
                             </FormGroup>
                         </Col>
+                        <Input name="IsLicenseVerified" type="hidden" value={verified}/>
                         <Col sm="12" md="4" className="offset-md-4">
                             <Button className="m-auto expanded" color="warning" type="submit">Submit</Button>
                         </Col>

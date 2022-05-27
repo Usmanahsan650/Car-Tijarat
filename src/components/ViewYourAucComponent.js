@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import { Container,Row,Col, Card, CardImg,CardBody,CardFooter,CardSubtitle,Badge, CardTitle, Button} from "reactstrap";
+import { Container,Row,Col, Card, CardImg,CardBody,CardFooter,CardSubtitle, CardTitle, Button} from "reactstrap";
 import { compareDates, timeConvert } from '../utils';
 
 function Fetchdata(setList,options,id){

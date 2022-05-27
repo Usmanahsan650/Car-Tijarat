@@ -60,7 +60,7 @@ function CreateCards(List, gridView, indexes) {
                     <h4 className="Headings">{auction.name}</h4>
                   </CardTitle>
                   <CardSubtitle >
-                    <b><h6>Model:{auction.modelNo}, Seato:{auction.no_of_seats}, RegNo:{auction.RegNo}</h6></b>
+                    <b><h6>Model:{auction.modelNo}, Seats:{auction.no_of_seats}, RegNo:{auction.RegNo}</h6></b>
                   </CardSubtitle>
                 </CardBody>
               </Col>
@@ -95,7 +95,7 @@ function CreateCards(List, gridView, indexes) {
                 <h4 className="Headings">{auction.name}</h4>
               </CardTitle>
               <CardSubtitle>
-              <b><h6>Model:{auction.modelNo}, Seato:{auction.no_of_seats}, RegNo:{auction.RegNo}</h6></b>
+              <b><h6>Model:{auction.modelNo}, Seats:{auction.no_of_seats}, RegNo:{auction.RegNo}</h6></b>
               </CardSubtitle>
             </CardBody>
             <CardFooter>
