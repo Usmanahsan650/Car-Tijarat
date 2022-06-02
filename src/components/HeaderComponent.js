@@ -75,14 +75,13 @@ export function Header(props) {
                     </Nav>
                     <Nav className="toggleOptions">
                         <NavItem>
-                            <Link to={"/about"}><Button className="NavOptions mx-2"  color="light" outline>About Us</Button></Link></NavItem>
+                            <Link to="/auctions"><Button className="NavOptions mx-2"  color="light" outline>Auctions</Button>
+                            </Link>
+                        </NavItem>
                     </Nav>
                     <Nav className="toggleOptions">
                         <NavItem>
-                            <Link to="/auctions"><Button className="NavOptions mx-2"  color="light" outline>Auctions</Button>
-                            </Link>
-                            </NavItem>
-                            
+                            <Link to={"/complaint"}><Button className="NavOptions mx-2"  color="light" outline>Lodge Complaint</Button></Link></NavItem>
                     </Nav>
                     {/* <Nav className="toggleOptions">
                         <NavItem><Button className="NavOptions"  color="light" outline>Sell A Car</Button></NavItem>

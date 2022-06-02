@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Header } from "./HeaderComponent";
 import { Home } from "./HomeComponent";
-import { About } from "./AboutUsComponent";
+import Complaint  from "./Complaint";
 import { useLocation } from "react-router-dom";
 import { Login } from "./LoginComponent";
 import { AuctionsList } from "./AuctionListingComponent";
@@ -65,7 +65,7 @@ export function Main(props){
         <Route path={"/SellYourCar"} component={SellCar} />
         <Route path={"/login/seller"} component={()=><Login setlogin={setlogin} setSeller={setSeller} setBuyer={setBuyer} as={location.pathname.split("/").pop()}/>} /> 
         <Route path={"/login/buyer"} component={()=><Login setlogin={setlogin} setSeller={setSeller} setBuyer={setBuyer} as={location.pathname.split("/").pop()}/>} /> 
-        <Route exact path={'/about'} component={About}/>
+        <Route exact path={'/complaint'} component={Complaint}/>
         <Route exact path="/auctions" component={AuctionsList}/>
         <Route path={"/"} component={()=><Home isSeller={isSeller} isBuyer={isBuyer} loggedin={loggedin} />} /> 
          
