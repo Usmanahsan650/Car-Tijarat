@@ -59,7 +59,13 @@ export function RegisteredCars(props){
         },
         credentials:"include",
         body:JSON.stringify(data)
-      }).then(res=>res.json()).then(res=>{alert(res);}).catch((err)=>{console.log(err)});
+      }).then(res=>res.json()).then(res=>{
+        if(res!=="The selected vehicle already registered for auction in that dateTime")
+        alert("Thank You For Registering Auction ✅" );
+        else
+        alert(res+"❌");
+        SetIsOpen(false)}
+        ).catch((err)=>{console.log(err)});
 
     }
 
@@ -100,11 +106,11 @@ export function RegisteredCars(props){
             <Form onSubmit={handleSubmit}>
              <FormGroup>
               <label for="start_date_time">Auction Starting Date {"&"} Time</label>
-             <Datetime className="inputBlack" dateFormat={"YYYY-M-DD"} timeFormat={"H:mm:ss"} inputProps={{required:true,name:"start_date_time", placeholder:"Starting Date&Time"}}/>
+             <Datetime className="inputBlack"  dateFormat={"YYYY-M-DD"} timeFormat={"H:mm:ss"} inputProps={{autoComplete:"off",required:true,name:"start_date_time", placeholder:"Starting Date&Time"}}/>
              </FormGroup>
              <FormGroup>
              <label for="end_date_time">Auction Ending date {"&"} time</label>  
-              <Datetime className="inputBlack" dateFormat={"YYYY-M-DD"} timeFormat={"H:mm:ss"} inputProps={{required:true,name:"end_date_time",placeholder:"Ending Date&Time"}}/>
+              <Datetime className="inputBlack" dateFormat={"YYYY-M-DD"} timeFormat={"H:mm:ss"} inputProps={{autoComplete:"off",required:true,name:"end_date_time",placeholder:"Ending Date&Time"}}/>
               </FormGroup>
               <FormGroup>
                 <Label for="startingPrice">Starting Bid Price</Label>

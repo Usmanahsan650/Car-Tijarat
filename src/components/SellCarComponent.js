@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { FormFeedback } from "reactstrap";
 import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
+import { Alert } from "bootstrap";
 
 function valid(target) {
     target.setAttribute("aria-invalid", "false");
@@ -28,7 +29,7 @@ async function ANPRdetection(image){
       return "no license plate detected"
   }
 }
-async function Validate(e,ref=null,verify=null,spin=null) {
+async function Validate(e,ref=null,verify=null,spin=null,disableReg=null) {
     const target = e.target;
     const value = target.value;
     if (value === "") {
@@ -71,6 +72,11 @@ async function Validate(e,ref=null,verify=null,spin=null) {
                 break;
         }
         case "Image":{
+            if(ref.current.value===""){
+                alert("Please Enter Registeration number first");
+                target.value=null
+                break
+            }
             const ext=value.split(".")[1].toLowerCase();
             if(ext==="png"||ext==="jpg"||ext==="jpeg"){
                 spin(true)
@@ -79,12 +85,19 @@ async function Validate(e,ref=null,verify=null,spin=null) {
                 console.log("Pridicted value :"+ expected+"provided Value"+ref.current.value.replace("-",""))
                 if(expected===ref.current.value.replace("-",""))
                   {  valid(target);
-                    verify(target);
+                    verify(true);
+                    disableReg(true)
+                    
                   }
                 else
+                {   verify(false)
                     invalid(target)
-            }else{
+                    disableReg(false)
+                }
+                }else{
                 invalid(target);
+                disableReg(false)
+                verify(false)
             }
 
             break;
@@ -97,6 +110,7 @@ async function Validate(e,ref=null,verify=null,spin=null) {
 }
 export function SellCar(props) {
     const regNoRef=useRef("");
+    const [disableReg,setDisableReg]=useState(false);
     const [spin,Setspinner]=useState(false);
     const [verified,SetVerfified]=useState(false);
     const history = useHistory();
@@ -154,9 +168,10 @@ export function SellCar(props) {
                                     <Label for="no_of_seats">Seats Capacity</Label>
                                     <Input type="number" min={2} max={15} name="no_of_seats" id="no_of_seats" placeholder="seats" />
                                 </FormGroup>
+                                
                                 <FormGroup>
                                     <Label for="RegNO">Registration #</Label>
-                                    <Input type="text" minLength={7} innerRef={regNoRef}  maxLength={7} onChange={Validate} placeholder="Registration ###-###" name="RegNo" />
+                                    <Input type="text" disabled={disableReg}  minLength={7} innerRef={regNoRef}  maxLength={7} onChange={Validate} placeholder="Registration ###-###" name="RegNo" />
                                     <FormFeedback  >Invalid registeration number(Format ABC-123)</FormFeedback>
                                 </FormGroup>
                             </Col>
@@ -212,7 +227,7 @@ export function SellCar(props) {
                                 <Label for="Image">
                                     Image
                                 </Label>
-                                <Input type="file" onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner)} name="Image" id="Image" />{
+                                <Input type="file" onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner,setDisableReg)} name="Image" id="Image" />{
                                     spin?
                                     <div>
                                     <span>Our AI Model is verifying the image</span>
@@ -220,10 +235,10 @@ export function SellCar(props) {
                                 </div>
                                 :
                                 <React.Fragment></React.Fragment>}
-                                <FormFeedback>{verified===false?"The file should be of type PNG,JPG or JPEG":"License plate cant be verified"}</FormFeedback>
+                                <FormFeedback>{verified===true?"The file should be of type PNG,JPG or JPEG":"License plate cant be verified"}</FormFeedback>
                             </FormGroup>
                         </Col>
-                        <Input name="IsLicenseVerified" type="hidden" value={verified?1:0 }/>
+                        <Input name="IsLicenseVerified"  type="hidden" value={verified?1:0 }/>
                         <Col sm="12" md="4" className="offset-md-4">
                             <Button className="m-auto expanded" color="warning" type="submit">Submit</Button>
                         </Col>
