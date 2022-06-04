@@ -29,7 +29,7 @@ export function Home(props) {
 function FeaturedCars() {
   const [carsList, SetCars] = useState([]);
   if (carsList == "") {
-    //console.log(process.env.REACT_APP_API_URL)
+    // console.log(process.env.REACT_APP_API_URL)
     fetch(process.env.REACT_APP_API_URL+'/api/auction/auctions_list',{
       method:"GET",
       credentials:"include",
