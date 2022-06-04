@@ -9,7 +9,7 @@ import { useHistory, Link } from "react-router-dom";
 
 const getSellerInfo = (AuctionID, setSellerInfo) => {
     // fetching seller information with respect to the AuctionID
-    fetch(process.env.REACT_APP_API_URL+'/api/seller/seller_info/' + AuctionID)
+    fetch(process.env.REACT_APP_EBS_URL+'/api/seller/seller_info/' + AuctionID)
         .then(response => {
             if (!response.ok) {
                 throw Error('Could not fetch the seller info.');
@@ -39,7 +39,7 @@ const ConnectToRoom = (props) => {
         getSellerInfo(AuctionID, setSellerInfo);
 
         if (props.loggedin && props.isBuyer && user) {
-            fetch(`${process.env.REACT_APP_API_URL}/api/auction/registered_for_bidding`, {
+            fetch(`${process.env.REACT_APP_EBS_URL}/api/auction/registered_for_bidding`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -152,7 +152,7 @@ function fetchPackages(setPackage) {
     const user = JSON.parse(window.localStorage.getItem("user"));
 
     if (user) {
-        fetch(`${process.env.REACT_APP_API_URL}/api/subscription/getRegisteredPackages`, {
+        fetch(`${process.env.REACT_APP_EBS_URL}/api/subscription/getRegisteredPackages`, {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -167,7 +167,7 @@ function fetchPackages(setPackage) {
 
 function confirmation(AuctionID, RegID, setReg, setModal) {
     if (window.confirm("Are You Sure?\nPress \"OK\" to register for this auction\nPress \"Cancel\" to abort")) {
-        fetch(`${process.env.REACT_APP_API_URL}/api/auction/register_for_bidding`, {
+        fetch(`${process.env.REACT_APP_EBS_URL}/api/auction/register_for_bidding`, {
             method: "POST",
             credentials: "include",
             mode: "cors",

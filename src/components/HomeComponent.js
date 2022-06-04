@@ -44,7 +44,7 @@ function FeaturedCars() {
     return (
       <Col sm="9" style={{ "boxShadow": "5px 10px 5px grey" }} key={auction.regNO}>
         <Card>
-          <CardImg src={process.env.REACT_APP_API_URL+auction.Image} height={"200px"} />
+          <CardImg src={process.env.REACT_APP_EBS_URL+auction.Image} height={"200px"} />
           <CardBody>
             <CardTitle>
               <h4 className="Headings">{auction.name}</h4>
@@ -108,7 +108,7 @@ function Footer() {
   const subscribe = (e, typeID) => {
     e.preventDefault();
 
-    fetch(process.env.REACT_APP_API_URL+'/api/subscription/subscribe', {
+    fetch(process.env.REACT_APP_EBS_URL+'/api/subscription/subscribe', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ typeID, UserCNIC: JSON.parse(localStorage.getItem("user")).cnic })

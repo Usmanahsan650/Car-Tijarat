@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 function Logout(setlogin){
     window.localStorage.removeItem("user")
     setlogin(false);
-    fetch(`${process.env.REACT_APP_API_URL}/api/logout`,{
+    fetch(`${process.env.REACT_APP_EBS_URL}/api/logout`,{
         method:"GET",
         credentials:"include",
         mode:"cors"
