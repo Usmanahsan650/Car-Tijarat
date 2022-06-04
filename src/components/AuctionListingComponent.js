@@ -7,7 +7,7 @@ import { compareDates, timeConvert } from '../utils';
 function Fetchdata(setList, options) {
 
   if (!options) {
-    fetch(process.env.REACT_APP_EBS_URL+'/api/auction/auctions_list', {
+    fetch(process.env.REACT_APP_API_URL+'/api/auction/auctions_list', {
       method: "GET",
       credentials: "include",
     }).then((response) => response.json()).then((data) => {
@@ -18,7 +18,7 @@ function Fetchdata(setList, options) {
   }
   else {
     const query = document.getElementById("query").value.trim();
-    fetch(process.env.REACT_APP_EBS_URL+`/api/auction/auctions_list?search=${query}`, {
+    fetch(process.env.REACT_APP_API_URL+`/api/auction/auctions_list?search=${query}`, {
       method: "GET",
       credentials: "include",
     }).then((resonse) => resonse.json()).then((data) => {
@@ -52,7 +52,7 @@ function CreateCards(List, gridView, indexes) {
           <Card>
             <Row className="no-gutters">
               <Col lg="4">
-                <CardImg src={process.env.REACT_APP_EBS_URL + auction.Image} height={"200px"} />
+                <CardImg src={process.env.REACT_APP_API_URL + auction.Image} height={"200px"} />
               </Col>
               <Col lg="5">
                 <CardBody>
@@ -89,7 +89,7 @@ function CreateCards(List, gridView, indexes) {
       return (
         <Col sm="12" md="6" lg="3" style={{ "boxShadow": "5px 10px 5px grey" }} key={auction.regNO}>
           <Card>
-            <CardImg src={process.env.REACT_APP_EBS_URL + auction.Image} height={"200px"} />
+            <CardImg src={process.env.REACT_APP_API_URL + auction.Image} height={"200px"} />
             <CardBody>
               <CardTitle>
                 <h4 className="Headings">{auction.name}</h4>

@@ -119,7 +119,7 @@ export function SellCar(props) {
         e.preventDefault();
 
         const f = new FormData(e.target)
-        fetch(`${process.env.REACT_APP_EBS_URL}/api/vehicle/vehicle/register`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/vehicle/vehicle/register`, {
             mode: 'cors',
             method: 'POST',
 

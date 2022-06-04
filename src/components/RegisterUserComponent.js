@@ -29,7 +29,7 @@ export function Register(props) {
             isBuyer:target.isBuyer.checked?1:0
         }
         console.log(f)
-        fetch(`${process.env.REACT_APP_EBS_URL}/api/user/signup`, {
+        fetch(`${process.env.REACT_APP_API_URL}/api/user/signup`, {
             method: "POST",
             mode: "cors",
             credentials: "include",
