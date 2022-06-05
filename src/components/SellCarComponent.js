@@ -130,11 +130,16 @@ export function SellCar(props) {
             credentials: 'include',
             body: f
         }).then((res) => res.json()).then(saved => {
-            if (saved) {
+            if (saved==="saved") {
                 alert("Your Car is registered successfully!");
                 history.replace("/registeredCars");
             }
+            else
+            alert(`Your Cant Be  Registered❌!:\n ${saved}`);
 
+
+        }).catch(e=>{
+            console.log(e)
         })
     }
     useEffect(() => {
@@ -157,25 +162,25 @@ export function SellCar(props) {
                             <Col md="6">
                                 <FormGroup>
                                     <Label for="name"> Name</Label>
-                                    <Input type="text" valid={null} onChange={Validate} minLength={3} maxLength={25} name="name" id="name" placeholder="Car Name" />
+                                    <Input type="text" required valid={null} onChange={Validate} minLength={3} maxLength={25} name="name" id="name" placeholder="Car Name" />
                                     <FormFeedback  >Name should not contain a number</FormFeedback>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="manufacturer"> Manufacturer</Label>
-                                    <Input type="text" name="manufacturer" onChange={Validate} id="manufacturer" placeholder="Make**" />
+                                    <Input type="text" required name="manufacturer" onChange={Validate} id="manufacturer" placeholder="Make**" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="modelNo">Model Year</Label>
-                                    <Input type="number" min={1980} max={new Date().getFullYear()} onChange={Validate} name="modelNo" id="modelNo" placeholder="Model" />
+                                    <Input type="number" required min={1980} max={new Date().getFullYear()} onChange={Validate} name="modelNo" id="modelNo" placeholder="Model" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="no_of_seats">Seats Capacity</Label>
-                                    <Input type="number" min={2} max={15} name="no_of_seats" id="no_of_seats" placeholder="seats" />
+                                    <Input type="number" required min={2} max={15} name="no_of_seats" id="no_of_seats" placeholder="seats" />
                                 </FormGroup>
                                 
                                 <FormGroup>
                                     <Label for="RegNO">Registration #</Label>
-                                    <Input type="text"  minLength={7} innerRef={regNoRef}  maxLength={7} onChange={(e)=>Validate(e,imageRef,SetVerfified,Setspinner,setDisableReg)} placeholder="Registration ###-###" name="RegNo" />
+                                    <Input type="text" required  minLength={7} innerRef={regNoRef}  maxLength={12} onChange={(e)=>Validate(e,imageRef,SetVerfified,Setspinner,setDisableReg)} placeholder="Registration ###-###" name="RegNo" />
                                     <FormFeedback  >Invalid registeration number(Format ABC-123)</FormFeedback>
                                 </FormGroup>
                             </Col>
@@ -195,11 +200,11 @@ export function SellCar(props) {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="km_driven">Kilometers driven</Label>
-                                    <Input type="number" min={0} placeholder="KM driven.." max={1000000} name="km_driven" id="km_driven" />
+                                    <Input type="number" required min={0} placeholder="KM driven.." max={1000000} name="km_driven" id="km_driven" />
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="fuel_type">Fuel Type</Label>
-                                    <Input type="select" name="fuel_type" id="body_type">
+                                    <Input type="select" required name="fuel_type" id="body_type">
                                         <option>Petrol</option>
                                         <option>Diesel</option>
                                         <option>Compressed natural gas (CNG)</option>
@@ -210,7 +215,7 @@ export function SellCar(props) {
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="engine_type">Engine Type</Label>
-                                    <Input type="select" name="engine_type" id="body_type">
+                                    <Input type="select" required name="engine_type" id="body_type">
                                         <option>Internal combustion engines.</option>
                                         <option>Hybrid engine (Internal combustion engine + electric engine)</option>
                                         <option>Electric engine</option>
@@ -220,10 +225,10 @@ export function SellCar(props) {
                                     <Label for="description">
                                         Description
                                     </Label>
-                                    <Input type="textarea" rows={5}  maxLength={200} name="description" id="description"  />
+                                    <Input type="textarea" required rows={5}  maxLength={200} name="description" id="description"  />
                                 </FormGroup>
 
-                                <Input type="hidden" name="ownerCNIC" value={user ? user.cnic : null} />
+                                <Input type="hidden" required name="ownerCNIC" value={user ? user.cnic : null} />
                             </Col>
                         </Row>
                         <Col sm="12" md="6" className="offset-md-3">
@@ -233,9 +238,9 @@ export function SellCar(props) {
                                 </Label>
                                 {
                                     disableReg?
-                                    <Input type="file" className="is-invalid" innerRef={imageRef}  onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner,setDisableReg)} name="Image" id="Image" />
+                                    <Input type="file" required className="is-invalid"  innerRef={imageRef}  onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner,setDisableReg)} name="Image" id="Image" />
                                     :
-                                    <Input type="file" innerRef={imageRef}  onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner,setDisableReg)} name="Image" id="Image" />
+                                    <Input type="file" required innerRef={imageRef}  onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner,setDisableReg)} name="Image" id="Image" />
                                 
                                 }
                                 {/* <Input type="file" innerRef={imageRef}  onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner,setDisableReg)} name="Image" id="Image" /> */}
