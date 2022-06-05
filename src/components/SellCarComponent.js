@@ -63,6 +63,9 @@ async function Validate(e,ref=null,verify=null,spin=null,disableReg=null) {
             break;
         }
         case "RegNo":{
+            verify(false)
+            disableReg(true)
+            ref.current.value=null;
             console.log(value.match("^[A-Z]*-[0-9]*"))
             if(!value.match("^[A-Z]*-[0-9]*"))
                 invalid(target);
@@ -86,17 +89,17 @@ async function Validate(e,ref=null,verify=null,spin=null,disableReg=null) {
                 if(expected===ref.current.value.replace("-",""))
                   {  valid(target);
                     verify(true);
-                    disableReg(true)
+                    // disableReg(true)
                     
                   }
                 else
                 {   verify(false)
                     invalid(target)
-                    disableReg(false)
+                    // disableReg(false)
                 }
                 }else{
                 invalid(target);
-                disableReg(false)
+                // disableReg(false)
                 verify(false)
             }
 
@@ -110,6 +113,7 @@ async function Validate(e,ref=null,verify=null,spin=null,disableReg=null) {
 }
 export function SellCar(props) {
     const regNoRef=useRef("");
+    const imageRef=useRef("");
     const [disableReg,setDisableReg]=useState(false);
     const [spin,Setspinner]=useState(false);
     const [verified,SetVerfified]=useState(false);
@@ -171,7 +175,7 @@ export function SellCar(props) {
                                 
                                 <FormGroup>
                                     <Label for="RegNO">Registration #</Label>
-                                    <Input type="text" disabled={disableReg}  minLength={7} innerRef={regNoRef}  maxLength={7} onChange={Validate} placeholder="Registration ###-###" name="RegNo" />
+                                    <Input type="text"  minLength={7} innerRef={regNoRef}  maxLength={7} onChange={(e)=>Validate(e,imageRef,SetVerfified,Setspinner,setDisableReg)} placeholder="Registration ###-###" name="RegNo" />
                                     <FormFeedback  >Invalid registeration number(Format ABC-123)</FormFeedback>
                                 </FormGroup>
                             </Col>
@@ -227,7 +231,15 @@ export function SellCar(props) {
                                 <Label for="Image">
                                     Image
                                 </Label>
-                                <Input type="file" onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner,setDisableReg)} name="Image" id="Image" />{
+                                {
+                                    disableReg?
+                                    <Input type="file" className="is-invalid" innerRef={imageRef}  onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner,setDisableReg)} name="Image" id="Image" />
+                                    :
+                                    <Input type="file" innerRef={imageRef}  onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner,setDisableReg)} name="Image" id="Image" />
+                                
+                                }
+                                {/* <Input type="file" innerRef={imageRef}  onChange={(e)=>Validate(e,regNoRef,SetVerfified,Setspinner,setDisableReg)} name="Image" id="Image" /> */}
+                                {
                                     spin?
                                     <div>
                                     <span>Our AI Model is verifying the image</span>

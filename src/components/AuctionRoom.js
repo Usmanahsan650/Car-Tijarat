@@ -28,7 +28,7 @@ const AuctionRoom = ({ data, connection, BiddingID, isEnded }) => {
     const [isplaced, setIsPlaced] = useState(false);
 
     const { socket, dispatch }  = useContext(SocketIOContext);
-
+        
     useEffect(() => {
         if(!isEnded){
             dispatch({type: 'JOIN_ROOM', RoomID: data.id, BiddingID});
@@ -114,7 +114,7 @@ const AuctionRoom = ({ data, connection, BiddingID, isEnded }) => {
                     <ListGroup>
 
                         <ListGroup.Item>Manufacturer: <span className="fw-bold">{data.manufacturer}</span></ListGroup.Item>
-                        <ListGroup.Item>License Number Verified : <span className="fw-bold">{data.IsLicenseVerfied?<Badge bg="success">Yes</Badge>:<Badge bg="danger">NO</Badge>}</span></ListGroup.Item>
+                        <ListGroup.Item>License Number Verified : <span className="fw-bold">{data.IsLicenseVerified?<Badge bg="success">Yes</Badge>:<Badge bg="danger">NO</Badge>}</span></ListGroup.Item>
                         <ListGroup.Item>Model: <span className="fw-bold">{data.modelNo}</span></ListGroup.Item>
                         <ListGroup.Item>Seats: <span className="fw-bold">{data.no_of_seats}</span></ListGroup.Item>
                         <ListGroup.Item>Body Type: <span className="fw-bold">{data.body_type}</span></ListGroup.Item>
