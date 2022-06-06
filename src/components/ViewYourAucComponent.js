@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import { Container,Row,Col, Card, CardImg,CardBody,CardFooter,CardSubtitle, CardTitle, Button} from "reactstrap";
+import { Container,Row,Col, Card, CardImg,CardBody,CardFooter,Badge,CardSubtitle, CardTitle, Button} from "reactstrap";
 import { compareDates, timeConvert } from '../utils';
 
 function Fetchdata(setList,options,id){
@@ -79,10 +79,16 @@ function CreateCards({List,gridView}){
                     </CardSubtitle>
                   </CardBody>
                   <CardFooter>
-                    {/* <Badge className="statusBadge" color="success">{auction.status}</Badge> */}
+                    <Badge className="statusBadge" color="success">{auction.status==="undefined"?"Unsold":"Sold"}</Badge>
                     { 
-                      result === -1 ? <Button className="gridButton" color="primary">On: {timeConvert(auction.start_date_time)}</Button> :
+                    
+                      result === -1 ?<div> <Button className="gridButton" color="primary">On: {timeConvert(auction.start_date_time)}</Button> 
+                      <Button className="gridButton" style={{"float":"left"}} color="primary">Feature</Button>
+                      </div>
+                      :
                         result === 1 ? <Button className="gridButton" color="danger" disabled>Auction Ended</Button> : 
+                        <div>
+                        
                         <Link
                           to={{
                             pathname: `/auction-room/${auction.id}`,
@@ -93,6 +99,9 @@ function CreateCards({List,gridView}){
                         >
                         <Button className="gridButton" color="success">In Progress</Button>
                         </Link>
+                        <Button className="gridButton" style={{"float":"left"}} color="primary">Feature</Button>
+                        </div>
+                        
                     }
                   </CardFooter>
                 </Card>

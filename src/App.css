@@ -348,3 +348,9 @@ body{
   margin-top: -50px;
   position: relative;
 }
+.featureHead{
+  background-color: rgba(19, 192, 33, 0.842);
+  color: white;
+  position: absolute;
+  border-radius:5px ;
+}

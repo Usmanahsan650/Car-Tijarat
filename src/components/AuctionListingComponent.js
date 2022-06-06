@@ -89,7 +89,12 @@ function CreateCards(List, gridView, indexes) {
       return (
         <Col sm="12" md="6" lg="3" style={{ "boxShadow": "5px 10px 5px grey" }} key={auction.regNO}>
           <Card>
-            <CardImg src={process.env.REACT_APP_API_URL + auction.Image} height={"200px"} />
+            {
+              auction.featured?
+            <CardHeader className="featureHead">Featured</CardHeader>
+            :
+            <div></div>
+            }<CardImg src={process.env.REACT_APP_API_URL + auction.Image} height={"200px"} />
             <CardBody>
               <CardTitle>
                 <h4 className="Headings">{auction.name}</h4>
